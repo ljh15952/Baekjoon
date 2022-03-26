@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-	cout << "Hello World!" <<endl;
+	printf("\\    /\\\n )  ( ')\n(  /  )\n \\(__)|\n");
 	
 	return 0;
 }
