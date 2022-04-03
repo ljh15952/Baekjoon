@@ -18,7 +18,7 @@ int main(){
 	}else{
 		int max = (d1 >= d2 && d1 >= d3) ? d1 :
 		(d2 >= d1 && d2 >= d3) ? d2 : d3;
-		money = 1000 + (max * 100);
+		money = (max * 100);
 	}
 	
 	cout << money << endl;
