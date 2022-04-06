@@ -10,7 +10,7 @@ int main(){
 	}
 	
 	int max = arr[0];
-	int num = 0;
+	int num = 1;
 	
 	for(int i = 1; i < 9; i++){
 		if(arr[i] > max){
