@@ -13,7 +13,6 @@ int main(){
 		cin >> size;
 		char str[20];
 		scanf("%s",str);
-
 		string s;
 		int index = 0;
 		while(str[index] != '\0'){
