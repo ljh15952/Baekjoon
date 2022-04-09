@@ -4,7 +4,6 @@ using namespace std;
 
 int main(){
 	
-	//5시 10분에 옷 갈아입으러 가
 	string str;
 	cin >> str;
 	for(int i = 0; i < str.length(); ++i){
