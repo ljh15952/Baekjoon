@@ -9,6 +9,6 @@ int main(){
 	
 	int sum = (b > c) ? -1 : (c - b ==0) ? -1 : (a / (c - b) + 1);
 	
-
+	cout << sum << endl;
 	return 0;
 }
