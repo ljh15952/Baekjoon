@@ -25,7 +25,7 @@ int main(){
 	}
 	int i = 1;
 	int plusNum = 6;
-	int sum = 2;
+	int sum = 1;
 
 	while(n > i){
 		i += plusNum;
