@@ -17,20 +17,15 @@ int main(){
 		if(N % H == 0){
 			int first = H;
 			int last = N / H;
-			printf("%d%02d",first,last);
+			printf("%d%02d\n",first,last);
 		}
 		else{
 			int first = N % H;
 			int last = N / H + 1;
-
-			printf("%d%02d",first,last);
+			printf("%d%02d\n",first,last);
 		}
 	}
 	
-	
-	// //6 12 10 -> 402
-	// //층 방수 몇번째 손님
-	// 6 12 12
 
 	
 		
