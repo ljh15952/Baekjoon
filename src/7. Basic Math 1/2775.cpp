@@ -3,6 +3,7 @@
 using namespace std;
 
 int main(){
+	cin.tie(0);
 	/*
 	
 	4층
@@ -20,7 +21,7 @@ int main(){
 	
 	for(int z = 0 ; z < t; ++z){
 		int k,n;
-	
+		
 		cin >> k >> n;
 		int arr[k+1][n] = {0,};
 
