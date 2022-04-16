@@ -25,7 +25,7 @@ int main(){
 	
 	for(int i = M; i <= N; i++){
 		if(arr[i] == 0)
-			cout << i << endl;
+			printf("%d\n",i);
 	}
 	
 	return 0;
