@@ -10,8 +10,6 @@ int main(){
 	
 	vector<int> arr;
 	
-	
-	
 	int k = 2;
 	
 	while(n > 1){
