@@ -4,13 +4,13 @@ using namespace std;
 
 void hanoi(int n, int start, int mid, int to){
 	if(n == 1){
-		cout << start << ' ' << to << endl;
+		printf("%d %d\n", start, to);
 		return;
 	}
 	
 	hanoi(n - 1, start, to, mid);
 	
-	cout << start << '1' << to << endl;
+	printf("%d %d\n",start,to);
 	
 	hanoi(n - 1, mid, start, to);
 	
