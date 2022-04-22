@@ -60,7 +60,12 @@ int main(){
 		}
 
 		sort(maxArr.begin(),maxArr.end());
-		cout << maxArr[1] << endl;
+		
+		if(maxArr.size() > 1){
+			cout << maxArr[1] << endl;
+		}else{
+			cout << maxArr[0] << endl;
+		}
 		
 	}else{
 		cout << arr[0] << endl;
