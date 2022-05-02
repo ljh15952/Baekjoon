@@ -5,7 +5,7 @@ using namespace std;
 int main(){
 	
 	
-	cout << "DP start" << endl;
-	
+	cout << "D P start" << endl;
+	cout << "TEST" << endl;
 	return 0;
 }
