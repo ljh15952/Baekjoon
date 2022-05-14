@@ -1,17 +1,17 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 int dp[1000];
+int arr[1000];
 
 int main(){
 	
 	int N;
 	cin >> N;
 	
-	int arr[1000];
-	
-	for(int i = 0; i < N; ++i){
+	for(int i = 1; i <= N; ++i){
 		cin >> arr[i];
 	}
 	
@@ -20,20 +20,18 @@ int main(){
 	0 1 
 	1
 	*/
-	dp[0] = 0;
-	int max = -1;
-	for(int i = 1; i < N; ++i){
-		for(int j = i-1; j >= 0; --j){
-			if(dp[i] > dp[j]){
-				if(max < dp[j]){
-					dp[i] = dp[j] + 1;
-					max = dp[i];
-				}
+	int num = 0;
+	for(int i = 1; i <= N; ++i){
+		dp[i] = 1;
+		for(int j = i - 1; j >= 1; --j){
+			if(arr[i] > arr[j]){
+				dp[i] = max(dp[i],dp[j]+1);
 			}
 		}
+		num = max(dp[i],num);
 	}
-		
-	cout << dp[N-1] + 1 << endl;
+	
+	cout << num << endl;
 	
 	return 0;
 }
