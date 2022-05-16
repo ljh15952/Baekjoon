@@ -15,7 +15,8 @@ int main(){
 	for(int i = 1; i <= N; ++i){
 		cin >> arr[i];
 	}
-	//왜 틀렸는지 모르겠어요 다음에 또 풀게요
+	//왜 틀렸는지 모르겠어요 다음에 또 풀게요 
+	//hihi
 	int maxDp1 = 0;
 	int maxDp1_index = 0;
 	int maxDp2 = 0;
