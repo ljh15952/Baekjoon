@@ -16,25 +16,17 @@ int main(){
 	
 	for(int i = 0; i < n; ++i){
 		cin >> arr[i];
-		dp[i] = arr[i];
 	}
 	
-	//10 20 15 25 10 20
-	//10 65 15 45 10 20
-	//75
-	for(int i = n-1; i >= 2; --i){
-		if(arr[i-1] > arr[i-2]){
-			dp[i-1] += dp[i];
-		}else{
-			dp[i-2] += dp[i];
-			if(i==3){
-				dp[0] += dp[1];
-			}
-			i--;
-		}
+	dp[0] = arr[0];
+	dp[1] = max(arr[0]+arr[1],arr[1]);
+	dp[2] = max(arr[0]+arr[2],arr[1]+arr[2]);
+	
+	for(int i = 3; i < n; ++i){
+		dp[i] = max(dp[i-2]+arr[i],arr[i-1]+arr[i]+dp[i-3]);
 	}
 	
-	cout << *max_element(dp+0,dp+n) << endl;
+	cout << dp[n-1] << endl;
 	
 	return 0;
 }
