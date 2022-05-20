@@ -2,7 +2,7 @@
 #include <algorithm>
 using namespace std;
 
-int dp[320];
+int dp[100000];
 
 int main(){
 	
