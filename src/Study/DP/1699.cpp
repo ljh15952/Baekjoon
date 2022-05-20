@@ -5,7 +5,7 @@ using namespace std;
 int main(){
 	
 	cout << "제곱수의 합" << endl;
-	
+	//start
 	/*
 	7 = 4(2) + 1 + 1 + 1
 	1 = 1
