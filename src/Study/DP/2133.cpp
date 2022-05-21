@@ -3,9 +3,6 @@
 using namespace std;
 
 int main(){
-	
-	cout << "new" << endl;
-	
 	//타일 채우기
 	
 	/*
@@ -13,6 +10,9 @@ int main(){
 	
 	3x2 = 3개의 타일로 가능
 	*/
+	
+	int n;
+	cin >> n;
 	
 	return 0;
 }
