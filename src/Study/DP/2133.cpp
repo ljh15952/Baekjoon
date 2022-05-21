@@ -29,9 +29,5 @@ int main(){
 
 	cout << dp[n] << endl;
 	
-	// for(int i = 1; i <= n; ++i){
-	// 	cout << dp[i] << endl;
-	// }
-	
 	return 0;
 }
