@@ -1,28 +1,40 @@
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 int Stack[10000];
+int Size = 0;
 
 void push(){
+	int n;
+	cin >> n;
 	
+	Stack[Size++] = n;
 }
 
-void pop(){
-	
+int pop(){
+	if(Size == 0)
+		return -1;
+	else
+		return Stack[--Size];
 }
 
-void size(){
-	
+int size(){
+	return Size;
 }
 
-void empty(){
-	
+int empty(){
+	if(Size==0)
+		return 1;
+	else
+		return 0;
 }
 
-void top(){
-	
+int top(){
+	if(Size==0)
+		return -1;
+	else
+		return Stack[Size-1];
 }
 
 int main(){
@@ -34,22 +46,16 @@ int main(){
 	string str;
 	for(int i = 0; i < n; ++i){
 		cin >> str;
-		switch(str){
-			case "push":
-				push();
-				break;
-			case "pop":
-				cout << pop() << endl;
-				break;
-			case "size":
-				cout << size() <<endl;
-				break;
-			case "empty":
-				cout << empty() << endl;
-				break;
-			case "top":
-				cout << top() << endl;
-				break;
+		if(str.compare("push")==0){
+			push();
+		}else if(str.compare("pop")==0){
+			cout << pop() << endl;
+		}else if(str.compare("size")==0){
+			cout << size() <<endl;
+		}else if(str.compare("empty")==0){
+			cout << empty() << endl;
+		}else if(str.compare("top")==0){
+			cout << top() << endl;
 		}
 	}
 
