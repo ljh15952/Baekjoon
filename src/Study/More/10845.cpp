@@ -12,9 +12,12 @@ class Node{
 		int getValue(){
 			return value;
 		}
+		Node * getNextNode(){
+			return next;
+		}
 	private:
 		int value;
-		Node * next;
+		Node * next = nullptr;
 };
 
 class Queue{
@@ -30,10 +33,16 @@ class Queue{
 				_tail->setNextNode(node);
 				_tail = node;
 			}
+			_size++;
 		}
 	
 		int pop(){
-			return 0;
+			if(_head == nullptr)
+				return -1;
+			int n = _head->getValue();
+			_head = _head->getNextNode();
+			_size--;
+			return n;
 		}
 	
 		int size(){
@@ -41,7 +50,7 @@ class Queue{
 		}
 	
 		int empty(){
-			return (_size == 0) ? 0 : 1;
+			return (_size == 0) ? 1 : 0;
 		}
 	
 		int front(){
@@ -53,7 +62,7 @@ class Queue{
 		}
 	
 	private:
-		int _size;
+		int _size = 0;
 		Node * _head = nullptr;
 		Node * _tail = nullptr;
 };
