@@ -22,6 +22,7 @@ class Queue{
 		void push(){
 			int n;
 			cin >> n;
+			cout << n;
 		}
 	
 		int pop(){
