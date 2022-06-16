@@ -22,7 +22,14 @@ class Queue{
 		void push(){
 			int n;
 			cin >> n;
-			cout << n;
+			if(_head == nullptr){
+				_head = new Node(n);
+				_tail = _head;				
+			}else{
+				Node * node = new Node(n);
+				_tail->setNextNode(node);
+				_tail = node;
+			}
 		}
 	
 		int pop(){
@@ -47,8 +54,8 @@ class Queue{
 	
 	private:
 		int _size;
-		Node * _head;
-		Node * _tail;
+		Node * _head = nullptr;
+		Node * _tail = nullptr;
 };
 
 int main(){
