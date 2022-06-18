@@ -25,11 +25,11 @@ class Queue{
 		void push(){
 			int n;
 			cin >> n;
+			Node * node = new Node(n);
 			if(_head == nullptr){
-				_head = new Node(n);
+				_head = node;
 				_tail = _head;				
 			}else{
-				Node * node = new Node(n);
 				_tail->setNextNode(node);
 				_tail = node;
 			}
@@ -54,10 +54,14 @@ class Queue{
 		}
 	
 		int front(){
+			if(empty() == 1)
+				return -1;
 			return _head->getValue();
 		}
 	
 		int back(){
+			if(empty() == 1)
+				return -1;
 			return _tail->getValue();
 		}
 	
