@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
+#include <list>
 
 using namespace std;
 
@@ -12,30 +12,35 @@ int main(){
 	int n;
 	cin >> n;
 	
-	int cursor = str.length();
+	list<char> l(str.begin(),str.end());
+	
+	auto cursor = l.end();
 	
 	for(int i = 0 ; i < n; ++i){
 		char c;
 		cin >> c;
 		if(c == 'L'){
-			cursor = max(0, cursor-1);
-		}else if(c == 'D'){
-			int leng = str.length();
-			cursor = min(leng, cursor+1);
-		}else if(c == 'B'){
-			if(cursor > 0){
-				str.erase(str.begin()+cursor-1);
+			if(cursor != l.begin()){
 				cursor--;
 			}
+		}else if(c == 'D'){
+			if(cursor != l.end()){
+				cursor++;
+			}
+		}else if(c == 'B'){
+			if(cursor != l.begin()){
+				cursor = l.erase(--cursor);
+			}
 		}else if(c == 'P'){
-			string s;
+			char s;
 			cin >> s;
-			str.insert(cursor,s);
-			cursor++;
+			l.insert(cursor,s);
 		}
 	}
-	//ㅈ빠지게 했더니 시간 초과 뜨네"?
-	cout << str << endl;
+	
+	for(auto it = l.begin(); it != l.end(); it++){
+		cout << *it;
+	}
 	
 	return 0;
 }
