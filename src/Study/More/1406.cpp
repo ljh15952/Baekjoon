@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
 	
-	cout << "1406" << endl;
+	cout << "Make text editor?" << endl;
 	
 	return 0;
 }
