@@ -2,9 +2,22 @@
 
 using namespace std;
 
+class Node{
+	public:
+		int data;
+		Node * next;
+};
+
+class CircleList{
+	public:
+};
+
 int main(){
 	
-	cout << "1158 start" << endl;
+	int k,n;
+	cin >> n >> k;
+	
+	
 	
 	return 0;
 }
