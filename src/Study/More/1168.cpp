@@ -7,6 +7,11 @@ int N, K;
 int a, b;
 int seg[(1<<18)];
 
+/*
+https://cocoon1787.tistory.com/313 <- 세그먼트 트리 해설
+https://cocoon1787.tistory.com/433 <- 문제 해설
+*/
+
 //세그먼트 트리 초기화
 int init(int node, int s, int e){ //루트노드, 시작, 끝
 	if(s == e) //start와 end의 위치가 일치하면 1을 넣어준다.
