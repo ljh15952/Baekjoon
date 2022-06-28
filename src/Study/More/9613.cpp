@@ -38,7 +38,7 @@ int main(){
 		int n;
 		cin >> n;
 		vector<int> arr;
-		int ans = 0; //답
+		long long int ans = 0; //답
 		for(int j = 0; j < n; ++j){
 			int l;
 			cin >> l;
