@@ -1,42 +1,42 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 int main(){
-	
-	long long int n;
-	
+	int n;
 	cin >> n;
 	
 	int b;
 	cin >> b;
 	
-	/*
+	vector<int> v;
 	
-	A : 10
-	B : 11
-	C : 12
-	D : 13
-	E : 14
-	.
-	.
-	.
-	Y : 34
-	Z : 35
+	while(1){
+		v.push_back(n % b);
+		n /= b;
+		if(n == 0)
+			break;
+	}
 	
-	ex) 2진법
-	00 01 10 11 100 101 110 111 1000..
-	3진법
-	1 2 3 10 11 12 13 101
+	vector<int>::reverse_iterator iter;
+	for(iter = v.rbegin(); iter != v.rend(); iter++){
+		if(*iter >= 10){
+			char c = *iter-10+'A';
+			cout << c;
+		}else{
+			cout << *iter;
+		}
+	}
 	
-	9를 2진법으로?
-	9->1001
-	9 - 2
-	
-	*/
-	
-
-	
+	// for(auto it : arr){
+	// 	if(it >= 10){
+	// 		char c = it-10+'A';
+	// 		cout << c;
+	// 	}else{
+	// 		cout << it;
+	// 	}
+	// }
 	
 	return 0;
 }
