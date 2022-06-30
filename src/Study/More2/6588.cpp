@@ -1,19 +1,23 @@
 #include <iostream>
+#include <vector>
+#include <math.h>
 
 using namespace std;
 
 int main(){
 	
-	/*
+	int arr[10001] = {0,};
+	arr[1] = 1;
 	
-	4보다 큰 모든 짝수는 두 홀수 소수의 합으로 나태날 수 있다.
-	8은 3+5 3과 5모두 소수이다. 
-	20 = 3+17
+	for(int i = 6; i <= 1000000; ++i){
+		for(int j = 6; j * i <= 1000000; ++j){
+			arr[i*j] = 1;
+		}
+	}
 	
-	*/
-	
-	
-	
+	for(int i = 0; i < 100; ++i){
+		cout << arr[i] << endl;
+	}
 	
 	return 0;
 }
