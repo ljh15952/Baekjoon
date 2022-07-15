@@ -4,7 +4,11 @@ using namespace std;
 
 int main(){
 	
-	cout << "10451" << endl;
-
+	/*
+	순열사이클
+	
+	
+	*/
+	
 	return 0;
 }
