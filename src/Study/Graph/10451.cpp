@@ -15,6 +15,11 @@ void dfs(int k){
 	}
 }
 
+//bfs로 가능 할까?
+void bfs(int k){
+	
+}
+
 int main(){
 	
 	/*
@@ -70,7 +75,8 @@ int main(){
 		int ans = 0;
 		for(int i = 1; i <= n; ++i){
 			if(visited[i] == false){
-				dfs(i);
+				//dfs(i);
+				bfs(i);
 				ans++;
 			}
 		}
