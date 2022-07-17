@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -15,9 +16,26 @@ void dfs(int k){
 	}
 }
 
-//bfs로 가능 할까?
+//bfs로 가능 할까? -> 됨
 void bfs(int k){
 	
+	queue<int> q;
+	q.push(k);
+	visited[k] = true;
+	
+	while(!q.empty()){
+		int x = q.front();
+		q.pop();
+		
+		for(int i = 0; i < graph[x].size(); ++i){
+			int num = graph[x][i];
+			
+			if(visited[num] == false){
+				q.push(num);
+				visited[num] = true;			
+			}
+		}		
+	}	
 }
 
 int main(){
