@@ -7,6 +7,7 @@ using namespace std;
 int visited[236197];
 int p;
 
+
 void dfs(int k){
 	visited[k]++;
 	if(visited[k] == 3)
@@ -32,8 +33,6 @@ int main(){
 	이와 같은 수열을 계속 구하다 보면 언젠가 이와 같은 반복수열이 된다. 이떄, 반복되는 부분을 제외했을 때,
 	수열에 남게 되는 수들의 개수를 구하는 프로그램을 작성하시오.
 	A(1<= A <= 9999), P(1<=P<=5)
-	5->7
-	7->4...visited=true면 break
 	3자리수 4자리수 나올때는? 13->1 133->1 1333->1 ex) A=9999 P=5 -> 59049 * 4 = 236196 <-배열의 크기
 	*/
 	
@@ -42,7 +41,6 @@ int main(){
 	
 	dfs(a);
 	int ans = 0;
-	
 	for(int i = 0; i < 236197; ++i){
 		if(visited[i] == 1)
 			ans++;
