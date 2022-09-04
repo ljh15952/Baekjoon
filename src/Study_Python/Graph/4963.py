@@ -1,3 +1,6 @@
+import sys
+sys.setrecursionlimit(10**6)
+
 def dfs(y, x) :
     if visited[y][x] == True:
         return
