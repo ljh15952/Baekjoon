@@ -26,6 +26,6 @@ for i in range(n):
         rightValue = heapq.heappop(rightHeap)
 
         heapq.heappush(leftHeap, -rightValue)
-        heapq.heappush(rightHeap, -leftHeap)
+        heapq.heappush(rightHeap, -leftValue)
     
     print(-leftHeap[0])
