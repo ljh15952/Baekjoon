@@ -1,30 +1,31 @@
 #include <iostream>
 #include <vector>
-//#include <pair>
 #include <memory.h>
 
 using namespace std;
 
-vector<pair<int,int>> node[10002];
-bool visited[10002];
+vector<pair<int,int>> tree[10002];
 
-int result = 0;
-int endPoint = 0;
+int ans = 0;
 
-void dfs(int p, int len){
-	if(visited[p])
-		return;
+int dfs(int x){
+	int biglen = 0;
+	int len1 = 0;
+	int len2 = 0;
+	int k;
 	
-	visited[p] = true;
-	if(result < len){
-		result = len;
-		endPoint = p;
+	for(int i = 0; i < tree[x].size(); i++){
+		k = dfs(tree[x][i].first) + tree[x][i].second;
+		if(k > len1 || k > len2){
+			len2 = len1;
+			len1 = k;		
+		}
+		biglen = max(biglen,k);
 	}
 	
-	for(int i = 0; i < node[p].size(); i++){
-		dfs(node[p][i].first, len + node[p][i].second);
-	}
+	ans = max(ans, len1+len2);
 	
+	return biglen;
 }
 
 int main(){
@@ -35,18 +36,12 @@ int main(){
 	for(int i = 0; i < n-1; i++){
 		int a,b,c;
 		cin >> a >> b >> c;
-		node[a].push_back({b,c});
-		node[b].push_back({a,c});
+		tree[a].push_back({b,c});
 	}
 	
-	dfs(1,0);
+	dfs(1);
 	
-	result = 0;
-	memset(visited, false, sizeof(visited));
-	
-	dfs(endPoint, 0);
-	
-	cout << result;
+	cout << ans << endl;
 	
 	return 0;
 }
