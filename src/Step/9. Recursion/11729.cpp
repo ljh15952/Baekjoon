@@ -23,6 +23,6 @@ int main(){
 	cin >> n;
 	cout << (1 << n) - 1 << endl;
 	hanoi(n,1,2,3);
-	
+	// Study again
 	return 0;
 }
