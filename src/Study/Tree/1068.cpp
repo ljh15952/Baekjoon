@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
 	
-	cout << "QWE" << endl;
+	cout << "QWEas" << endl;
 	
 	return 0;
 }
