@@ -1,10 +1,40 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
+class Node{
+	public:
+		vector<Node*> children;		
+};
+
+int n;
+vector<Node*> Tree;
+
+void Traversal(){
+	for(int i = 0; i < n; ++i){
+		int k = Tree[i]->children.size();
+		cout << k << endl;
+	}
+}
+
 int main(){
+
+	cin >> n;
 	
-	cout << "QWEas" << endl;
+	
+	for(int i = 0; i < n; ++i){
+		int t;
+		cin >> t;
+		Node * n = new Node();
+		Tree.push_back(n);
+		if(t != -1){
+			Tree[t]->children.push_back(n);
+		}
+		
+	}
+	
+	Traversal();
 	
 	return 0;
 }
