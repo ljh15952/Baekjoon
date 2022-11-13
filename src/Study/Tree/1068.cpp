@@ -5,9 +5,18 @@ using namespace std;
 
 vector<int> adj[55];
 int del_num;
+/*
+adj
+0 1 2
+1 3 4
+2
+3
+4
+5
 
+delnum 2
+*/
 int dfs(int cur){
-	int ret = 1;
 	int child = 0;
 	
 	for(auto ch : adj[cur]){
@@ -20,7 +29,7 @@ int dfs(int cur){
 	if(child)
 		return child;
 	else
-		return ret;
+		return 1;
 }
 
 int main(){
