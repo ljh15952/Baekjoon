@@ -3,38 +3,47 @@
 
 using namespace std;
 
-class Node{
-	public:
-		vector<Node*> children;		
-};
+vector<int> adj[55];
+int del_num;
 
-int n;
-vector<Node*> Tree;
-
-void Traversal(){
-	for(int i = 0; i < n; ++i){
-		int k = Tree[i]->children.size();
-		cout << k << endl;
+int dfs(int cur){
+	int ret = 1;
+	int child = 0;
+	
+	for(auto ch : adj[cur]){
+		if(ch == del_num){
+			continue;
+		}
+		child += dfs(ch);
 	}
+	
+	if(child)
+		return child;
+	else
+		return ret;
 }
 
 int main(){
-
+	int n;
 	cin >> n;
 	
+	int root;
 	
 	for(int i = 0; i < n; ++i){
-		int t;
-		cin >> t;
-		Node * n = new Node();
-		Tree.push_back(n);
-		if(t != -1){
-			Tree[t]->children.push_back(n);
-		}
-		
+		int parent;
+		cin >> parent;
+		if(parent == -1)
+			root = i;
+		else
+			adj[parent].push_back(i);
 	}
 	
-	Traversal();
+	cin >> del_num;
+	
+	if(root == del_num)
+		cout << 0 << endl;
+	else
+		cout << dfs(root) << endl;
 	
 	return 0;
 }
