@@ -1,11 +1,28 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
+
+
+class Node{
+	public:
+		int data;
+		Node* left;
+		Node* right;
+};
+vector<int> Tree;
 int main(){
 	
+	int a;
+	while(cin >> a){
+		Tree.push_back(a);
+	}
 	cout << "ASD" << endl;
 	
+	/*
+	리눅스 환경이라 ctrl+d로 EOF입력하여 입력을 종료한다.
+	*/
 	return 0;
 }
 
@@ -28,4 +45,7 @@ int main(){
 
 전위 순회한 입력을 가지고 트리를 구성하여
 후위순회하여 출력하면 시간 초과가 날까?
+
+입력 받은 데로 left값을 채우며 부모보다 큰 값이 입력되면 right을 채우고
+그 윗 부모로 올라감
 */
