@@ -3,14 +3,32 @@
 
 using namespace std;
 
-vector<int> Tree;
+class Node{
+	public:
+		int data;
+		Node* left;
+		Node* right;
+};
+
+Node * insert(Node * node, int data){
+	if(node == nullptr){
+
+	}
+}
+
+void postOrder(int start, int end){
+	
+}
+
 int main(){
 	
 	int a;
 	while(cin >> a){
 		Tree.push_back(a);
 	}
-	cout << "ASD" << endl;
+	
+	postOrder(0, Tree.size());
+
 	
 	/*
 	리눅스 환경이라 ctrl+d로 EOF입력하여 입력을 종료한다.
@@ -35,8 +53,6 @@ int main(){
 입력 50 30 24 5 28 45 98 52 60
 출력 5 28 24 45 30 60 52 98 50
 
-전위 순회한 입력을 가지고 트리를 구성하여
-후위순회하여 출력하면 시간 초과가 날까?
 
 입력 받은 데로 left값을 채우며 부모보다 큰 값이 입력되면 right을 채우고
 그 윗 부모로 올라감
