@@ -3,31 +3,33 @@
 
 using namespace std;
 
-class Node{
-	public:
-		int data;
-		Node* left;
-		Node* right;
-};
-
-Node * insert(Node * node, int data){
-	if(node == nullptr){
-
-	}
-}
+vector<int> arr;
 
 void postOrder(int start, int end){
 	
+	if(start >= end)
+		return;
+	
+	int i = start + 1;
+	
+	for(i = start + 1; i < end; ++i){
+		if(arr[start] < arr[i])
+			break;
+	}
+	
+	postOrder(start + 1, i);
+	postOrder(i, end);
+	cout << arr[start] << endl;
 }
 
 int main(){
 	
 	int a;
 	while(cin >> a){
-		Tree.push_back(a);
+		arr.push_back(a);
 	}
 	
-	postOrder(0, Tree.size());
+	postOrder(0, arr.size());
 
 	
 	/*
