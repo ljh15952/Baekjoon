@@ -1,10 +1,32 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
+vector<int> arr[1005];
+
 int main(){
 	
-	cout << "9372" << endl;
+	//int t;
+	//cin >> t;
+	
+	int n,m;
+	cin >> n >> m;
+	
+	for(int i = 0; i < m; ++i){
+		int a,b;
+		cin >> a >> b;
+		
+		arr[a].push_back(b);
+		arr[b].push_back(a);
+	}
+	
+	for(int i = 0; i < 5; ++i){
+			for(auto it : arr[i]){
+				cout << i << " " << it << endl;
+		}
+	}
+
 	
 	return 0;
 }
@@ -27,4 +49,30 @@ int main(){
 출력
 테스트 케이스마다 한 줄을 출력
 *상근이가 모든 국가를 여행하기 위해 타야 하는 비행기 종류의 최소 개수
+
+3(국가의 수) 3(비행기의 종류)
+1(국가 1) 2(국가 2) 1과 2사이의 비행기가 있음
+2(국가 2) 3(국가 3) 2와 3사이의 비행기가 있음
+1(국가 1) 3(국가 3) 1과 3사이의 비행기가 있음
+모든 국가를 여행하기 위해 타야되는 비행기 종류의 최소 수 2
+
+          1
+	   /    \
+	  2  -   3  
+	
+   
+
+5(국가 수) 4(비행기 수)
+         2
+	  /     \
+	1        3
+              \
+			   4
+			    \
+				 5
+
+
+
+
+
 */
