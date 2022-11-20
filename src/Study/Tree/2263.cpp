@@ -2,9 +2,26 @@
 
 using namespace std;
 
+int Index[100001];
+int inorder[100001];
+int postorder[100001];
+int n;
+
+
+void getPreOrder(int inStart, int inEnd, int postStart, int postEnd){
+	
+}
+
 int main(){
 	
-	cout << "2263" << endl;
+	cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> inorder[i];
+        Index[inorder[i]] = i; // inorder 요소들의 Index 정보 저장
+    }
+    for (int i = 1; i <= n; i++)
+        cin >> postorder[i];
 	
 	return 0;
 }
@@ -29,8 +46,4 @@ n(1<=n<=100000)
 	2
   /   \
  1     3
- 
- 이진트리라는 조건이 있으니 입력된 수에 따라 트리가 몇층인지 계산 한 다음
- 쭉쭉 해나간다면?
-
 */
