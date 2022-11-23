@@ -1,10 +1,26 @@
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
 int main(){
 	
-	cout << "2164" << endl;
+	queue<int> arr;
+	
+	int n;
+	cin >> n;
+	
+	for(int i = 1; i <= n; ++i){
+		arr.push(i);
+	}
+
+	while(arr.size() != 1){
+		arr.pop();
+		arr.push(arr.front());
+		arr.pop();
+	}
+	
+	cout << arr.front() << endl;
 	
 	return 0;
 }
