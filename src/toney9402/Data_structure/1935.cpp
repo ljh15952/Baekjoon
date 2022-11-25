@@ -24,6 +24,8 @@ int main(){
 
 1
 AA+A+
+-> A+A -> AA+
+-> A+A+A -> AA+A+ 이런 느낌
 
 
 */
