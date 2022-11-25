@@ -1,10 +1,46 @@
 #include <iostream>
-
+#include <stack>
+#include <vector>
 using namespace std;
 
 int main(){
 	
-	cout << "1874" << endl;
+	vector<int> arr;
+	int n;
+	
+	cin >> n;
+	
+	for(int i = 0; i < n; ++i){
+		int t;
+		cin >> t;
+		arr.push_back(t);
+	}
+	
+	// 4 3 6 8 7 5 2 1
+	
+	int num = 0;
+	stack<int> sol;
+	vector<char> ans;
+	
+	for(int i = 1; i <= n; ++i){
+		sol.push(i);
+		ans.push_back('+');
+		
+		while(sol.empty() == false && sol.top() == arr[num]){
+			sol.pop();
+			ans.push_back('-');
+			num++;
+		}
+	}
+	
+	if(sol.empty() == false)
+		cout << "NO" << endl;
+	else{
+		for(auto it : ans){
+			cout << it << '\n';
+		}
+	}
+	
 	
 	return 0;
 }
