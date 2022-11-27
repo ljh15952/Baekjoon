@@ -1,10 +1,54 @@
 #include <iostream>
-
+#include <string>
+#include <vector>
+#include <stack>
 using namespace std;
 
 int main(){
 	
-	cout << "1935" << endl;
+	cin.tie(0);
+	ios_base::sync_with_stdio(0);
+
+	
+	int n;
+	cin >> n;
+	
+	string str;
+	cin >> str;
+	
+	vector<int> v;
+		
+	for(int i = 0; i < n; ++i){
+		int t;
+		cin >> t;
+		v.push_back(t);
+	}
+	
+	stack<double> s;
+	
+	for(int i = 0; i < str.length(); ++i){
+		if(str[i] >= 'A' && str[i] <= 'Z'){
+			s.push(v[str[i] - 'A']);
+		}else{
+				double temp = s.top();
+				s.pop();
+				if(str[i] == '+'){
+					temp = s.top() + temp;
+				}else if(str[i] == '-'){
+					temp = s.top() - temp;
+				}else if(str[i] == '*'){
+					temp = s.top() * temp;;
+				}else if(str[i] == '/'){
+					temp = s.top() / temp;
+				}
+				s.pop();
+				s.push(temp);
+		}
+	}
+	
+	cout << fixed;
+	cout.precision(2);
+	cout << s.top() << endl;
 	
 	return 0;
 }
