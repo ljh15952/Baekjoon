@@ -1,36 +1,51 @@
 #include <iostream>
-#include <vector>
+#include <queue>
+#include <algorithm>
+
 using namespace std;
 
-class Node{
-	public:
-		int num;
-		int imp;
-		Node Node(int n, int i){
-			num = n;
-			imp = i;
-		}
-	
-};
 
 int main(){
 	
-	int n,c;
-	cin >> n >> c;
+	int t;
+	cin >> t;
 	
-	vector<int> arr;
-	vector<int> imp;
-	
-	for(int i = 0; i < n; ++i){
-		int t;
-		cin >> t;
-		imp.push_back(t);
-		arr.push_back(i);
+	for(int k = 0; k < t; k++){
+		int n,c;
+		cin >> n >> c;
+
+
+		queue<pair<int, int>> q;
+		priority_queue<int> pq;
+
+		for(int i = 0; i < n; ++i){
+			int t;
+			cin >> t;
+			q.push({i, t});
+			pq.push(t);
+		}
+		int ct = 0;
+		while(!pq.empty()){
+			int idx = q.front().first;
+			int val = q.front().second;
+			q.pop();
+			if(pq.top() == val){
+				pq.pop();
+				ct++;
+				if(idx == c){
+					cout << ct << endl;
+					break;
+				}
+			}else{
+				q.push({idx, val});
+			}
+		}
 	}
 	
+	
+	
 	/*
-	0 1 2 3
-	1 2 3 4
+	9 1 1 1 1 1
 
 	*/
 	
