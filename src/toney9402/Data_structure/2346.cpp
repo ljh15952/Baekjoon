@@ -1,10 +1,23 @@
 #include <iostream>
+#include <deque>
 
 using namespace std;
 
 int main(){
   
-  cout << "pull 2146" << endl; 
+ 	int n;
+	cin >> n;
+	
+	
+	deque<pair<int,int>> ballon;
+	
+	for(int i = 0; i < n; ++i){
+		int t;
+		cin >> t;
+		ballon.push_back({i,t});
+	}
+	
+	
 	
   
  return 0; 
