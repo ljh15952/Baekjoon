@@ -4,23 +4,37 @@
 using namespace std;
 
 int main(){
-  
  	int n;
 	cin >> n;
 	
 	
-	deque<pair<int,int>> ballon;
+	deque<pair<int,int>> ballons;
 	
-	for(int i = 0; i < n; ++i){
+	for(int i = 1; i <= n; ++i){
 		int t;
 		cin >> t;
-		ballon.push_back({i,t});
+		ballons.push_back({i,t});
 	}
 	
-	
-	
+	while(!ballons.empty()){
+		int num = ballons.front().first;
+		int mov = ballons.front().second;
+		ballons.pop_front();
+		cout << num << " ";
+		if(mov > 0){
+			for(int i = 0; i < mov-1; ++i){
+				ballons.push_back(ballons.front());
+				ballons.pop_front();
+			}
+		}else{
+			for(int i = 0; i < (mov*-1); ++i){
+				ballons.push_front(ballons.back());
+				ballons.pop_back();
+			}
+		}
+	}
   
- return 0; 
+ 	return 0; 
 }
 
 /*
