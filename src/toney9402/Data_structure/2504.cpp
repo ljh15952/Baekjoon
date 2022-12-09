@@ -8,47 +8,54 @@ int main(){
 	string str;
 	cin >> str;
     
-    stack<char>	arr;
-    stack<char> math;
+    stack<char>	stack;
+	stack<int> nums; // <- 왜 오류?
+	char cur;
     
     for(auto it : str){
-        
-        if(arr.empty() == true){
-            arr.push(it);
-        }else{
-            if((it == '(' || it == '[') && (arr.top() == '(' || arr.top() == '[')){
-                math.push('x');
-            }else if((arr.top() == ')' || arr.top() == ']') && (it == '(' || it == '[')){
-                math.push('+');
-            }
-            if((arr.top() == '(' || it == ')') && (arr.top() == '[' && it == ']')){
-                arr.pop();
-            }else{
-                arr.push(it);
-            }   
-        }
-        if(it == '('){
-            math.push('2');
-        }else if(it == '['){
-            math.push('3');
-        }
+        if(stack.empty()){
+			stack.push(it);
+			cur = it;
+		}else if(it == '('){
+			stack.push(it);
+			cur = it;
+		}else if(it == ')'){
+			if(cur == it){
+				stack.pop();
+				stack.pop();
+				stack.push('2');
+			}else{
+				while(!stack.empty()){
+					char c = stack.top();
+					if(c == '['){
+						cout << "0" << endl;
+						return 0;
+					}else if(c != '('){
+						nums.push((stack.top() - '0') * 2);
+						stack.pop();
+					}else if(c == '('){
+						stack.pop();
+						stack.pop();
+					}
+					
+				}
+			}
+		}
     }
-    if(arr.empty() == false){
-        cout << "0" << endl;
-        
-        while(!arr.empty()){
-            cout << arr.top() << " ";
-            arr.pop();
-        }
-        cout << endl;   
-        //return 0;
-    }
-    
-    while(!math.empty()){
-        cout << math.top() << " ";
-        math.pop();
-    }
-        
+	
+	for(auto it : nums){
+		cout << it << endl;
+	}
+	
+	/*
+	(())
+	(2
+	*/
         
     return 0;
 }
+
+/*
+
+
+*/
