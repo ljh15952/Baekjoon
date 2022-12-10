@@ -8,49 +8,52 @@ int main(){
 	string str;
 	cin >> str;
     
-    stack<char>	stack;
-	stack<int> nums; // <- 왜 오류?
-	char cur;
+	stack<char> s;
+    int ans = 0;
+	int tmp = 1;
     
-    for(auto it : str){
-        if(stack.empty()){
-			stack.push(it);
-			cur = it;
-		}else if(it == '('){
-			stack.push(it);
-			cur = it;
+    for(int i = 0; i < str.length(); i++){
+		char it = str[i];
+        if(it == '('){
+			tmp *= 2;
+			s.push('(');
+		}else if(it == '['){
+			tmp *= 3;
+			s.push('[');
 		}else if(it == ')'){
-			if(cur == it){
-				stack.pop();
-				stack.pop();
-				stack.push('2');
-			}else{
-				while(!stack.empty()){
-					char c = stack.top();
-					if(c == '['){
-						cout << "0" << endl;
-						return 0;
-					}else if(c != '('){
-						nums.push((stack.top() - '0') * 2);
-						stack.pop();
-					}else if(c == '('){
-						stack.pop();
-						stack.pop();
-					}
-					
-				}
+			if(s.empty() || s.top() != '('){
+				ans = 0;
+				break;
 			}
+			if(str[i-1] == '('){
+				ans += tmp;
+				tmp /= 2;
+				s.pop();
+			}else{
+				tmp /= 2;
+				s.pop();
+			}
+		}else if(it == ']'){
+			if(s.empty() || s.top() != '[') {
+                ans = 0;
+                break;
+            }if(str[i-1] == '[') {
+                ans += tmp;
+                tmp /= 3;
+                s.pop();
+            }else {
+                tmp /= 3;
+                s.pop();
+            }
 		}
     }
 	
-	for(auto it : nums){
-		cout << it << endl;
-	}
+	if(!s.empty())
+		ans = 0;
+ 
+    cout << ans << "\n";
 	
-	/*
-	(())
-	(2
-	*/
+
         
     return 0;
 }
