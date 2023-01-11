@@ -16,10 +16,7 @@ int main(){
     	}
     }
     
-    for(int i = 1; i <= 20; ++i){
-        cout << cards[i] << ' ';
-    }
-    
+    for(int i = 1; i <= 20; ++i) cout << cards[i] << ' ';
+	
     return 0;
 }
-
