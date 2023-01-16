@@ -2,7 +2,6 @@
 
 using namespace std;
 
-<<<<<<< HEAD
 void insert(int idx, int num, int arr[], int& len){
 	for(int i = len; i > idx; --i){
 		arr[i] = arr[i-1];
@@ -61,7 +60,7 @@ void erase_test2(){
 }
 
 int main(void) {
-  //insert_test();
-  //erase_test();
+  	insert_test();
+  	erase_test();
 	erase_test2();
 }
