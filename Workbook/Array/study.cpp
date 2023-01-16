@@ -65,16 +65,3 @@ int main(void) {
   //erase_test();
 	erase_test2();
 }
-=======
-void Insert(int n, int k, int arr[], int& len){
-	
-}
-
-int main(){
-	ios::sync_with_stdio(0); cin.tie(0);
-	
-	cout << "adsf" << "\n";
-	
-	return 0;
-}
->>>>>>> 42ef6c0721e35942b5f6f63fce7bb521d6f08807
