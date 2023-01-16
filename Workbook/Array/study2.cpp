@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
-	
+	/*
 	vector<int> v1(3, 5); // [5, 5, 5];
 	cout << v1.size() << '\n'; // 3
 	v1.push_back(7); // [5, 5, 5, 7];
@@ -22,6 +22,29 @@ int main(){
 	v4.clear(); // []
 	
 	cout << v3[0] << v3[1] << '\n';
+	*/
+	
+	/*
+	vector<int> v1 = {1,2,3,4,5,6};
+	
+	// 1. range-based for loop
+	for(int e : v1)
+		cout << ++e << ' ';
+	for(int& e : v1)
+		cout << ++e << ' ';
+	// 2. for
+	for(int i = 0; i < v1.size(); i++)
+		cout << v1[i] << ' ';
+	
+	// 3. wrong
+	for(int i = 0; i <= v1.size() - 1; i++)
+		cout << v1[i] << ' ';
+	*/
+	
+	// size()메소드의 반환값이 unsigned int기 때문에 1을 빼주면
+	// (unsigned int)0 - (int)1 -> overflow
+	vector<int> v2;
+	cout << v2.size() - 1;
 	
 	return 0;
 }
