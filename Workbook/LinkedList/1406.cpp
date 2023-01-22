@@ -39,6 +39,8 @@ int main(){
 		}
 	}
 	
+
+	
 	for(auto it : str){
 		cout << it;
 	}
