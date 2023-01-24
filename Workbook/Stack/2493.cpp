@@ -8,30 +8,18 @@ int main(){
 	int n;
 	cin >> n;
 	
-	
 	stack<pair<int,int>> s;
-	int ans[n] = {};
-	int cnt = 0;
-	for(int i = 0; i < n; ++i){
+	s.push({100000001, 0});
+	for(int i = 1; i <= n; ++i){
 		int a;
 		cin >> a;
 		
-		while(!s.empty() && a > s.top().first){
+		while(a > s.top().first){
 			s.pop();
 		}
-		
-		if(!s.empty()){
-			ans[i] = s.top().second;
-		}
-		pair<int, int> p;
-		p.first = a;
-		p.second = i + 1;
-		s.push(p);
+		cout << s.top().second << ' ';
+		s.push({a, i});
 	}
-	
-	for(auto it : ans){
-		cout << it << ' ';
-	}
-	
+
 	return 0;
 }
