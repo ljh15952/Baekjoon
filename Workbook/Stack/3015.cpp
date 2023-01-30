@@ -8,9 +8,24 @@ int main(){
 	int N;
 	cin >> N;
 	
+	stack<pair<int,int>> s;
+	long long ans = 0;
 	
+	for(int i = 0; i < N; ++i){
+		int n;
+		cin >> n;
+		
+		int cnt = 1;
+		while(!s.empty() && s.top().first <= n){
+			ans += s.top().second;
+			if(s.top().first == n) cnt += s.top().second;
+			s.pop();
+		}
+		if(!s.empty()) ans++;
+		s.push({n, cnt});
+	}
 	
-	
+	cout << ans << '\n';
 	
 	return 0;
 }
@@ -27,6 +42,17 @@ int main(){
 1 -> 1
 0 -> 0
 -> 10명
+
+stack
+5
+n 
+1
+ct
+9
+
+6 5 4 3 2 1
+
+
 
 
 */
