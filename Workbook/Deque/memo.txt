@@ -1,1 +1,15 @@
 deque  memo
+Restricted Structure
+양쪽 끝에서 삽입과 삭제가 전부 가능
+Double Ended Queue
+
+원소 추가 O(1)
+원소 제거 O(1)
+제일 앞/뒤 원소 확인 O(1)
+원칙적으로 제일 앞/뒤가 아닌 나머지 원소들의 확인/변경이 불가능
+-> STL deque에서는 인덱스로 원소 접근이 가능!
+
+const int MX = 1000005;
+int dat = [2*MX+1];
+int head = MX, tail = MX; <- 초기값이 MX인 이유!
+중간 값에서 부터 양쪽으로 늘어나기 때문에 0이나 끝 값인 경우 확장X 대충 중앙값임 MX가
