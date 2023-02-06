@@ -8,17 +8,23 @@ int main(){
 	int N, L;
 	cin >> N >> L;
 	
-	deque<int> dq;
+	deque<pair<int,int>> dq;
 	
 	for(int i = 0; i < N; ++i){
 		int a;
 		cin >> a;
-		dq.push_back(a);
 		
-		if(i >= L){
+		while(!dq.empty() && dq.back().second >= a){
+			dq.pop_back();
+		}
+		
+		dq.push_back({i, a});
+		
+		if(dq.front().first <= i - L){
 			dq.pop_front();
 		}
-		cout << *min_element(dq.begin(),dq.end()) << ' ';
+
+		cout << dq.front().second << ' ';
 	}
 	cout << '\n';
 	return 0;
