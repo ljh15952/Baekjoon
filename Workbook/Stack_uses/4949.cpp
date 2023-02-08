@@ -8,10 +8,40 @@ int main(){
 	string s;
 	
 	while(1){
-		cin >> s;
-		if(s == '.') break;
+		getline(cin, s);
+		if(s == ".") break;
 		
-		cout << "pass";
+		stack<char> st;
+		bool isStr = true;
+		
+		for(auto it : s){
+			if(it == '(' || it == '['){
+				st.push(it);
+			}else if(it == ')'){
+				if(st.top() == '('){
+					st.pop();
+					st.pop();
+				}else{
+					isStr = false;
+					break;
+				}
+			}else if(it == ']'){
+				if(st.top() == '['){
+					st.pop();
+					st.pop();
+				}else{
+					isStr= false;
+					break;
+				}
+			}
+		}
+		
+		if(st.size() != 0){
+			isStr = false;
+		}
+		
+		if(isStr) cout << "yes\n";
+		else cout << "no\n";
 	}
 	
 	
