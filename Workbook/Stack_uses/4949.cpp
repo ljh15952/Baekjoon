@@ -21,15 +21,16 @@ int main(){
 		bool isStr = true;
 		
 		for(auto it : s){
-			if(it == '(' || it == '['){
-				st.push(it);
-			}else if(it == ')'){
+			if(it == '(' || it == '[') st.push(it);
+			else if(it == ')'){
 				if(st.size() > 0 && st.top() == '('){
 					st.pop();
 				}else{
 					isStr = false;
 					break;
 				}
+				// Short-circuit evaluation
+				
 			}else if(it == ']'){
 				if(st.size() > 0 && st.top() == '['){
 					st.pop();
