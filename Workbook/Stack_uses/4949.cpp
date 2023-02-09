@@ -2,12 +2,18 @@
 
 using namespace std;
 
+
+/*
+So when I die (the [first] I will see in (heaven) is a score list).
+
+*/
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	string s;
+	
 	
 	while(1){
+		string s;
 		getline(cin, s);
 		if(s == ".") break;
 		
@@ -18,16 +24,14 @@ int main(){
 			if(it == '(' || it == '['){
 				st.push(it);
 			}else if(it == ')'){
-				if(st.top() == '('){
-					st.pop();
+				if(st.size() > 0 && st.top() == '('){
 					st.pop();
 				}else{
 					isStr = false;
 					break;
 				}
 			}else if(it == ']'){
-				if(st.top() == '['){
-					st.pop();
+				if(st.size() > 0 && st.top() == '['){
 					st.pop();
 				}else{
 					isStr= false;
