@@ -10,21 +10,20 @@ int main(){
 	
 	stack<char> st;
 	int ans = 0;
-	bool flag = false;
-	for(auto it : s){
-		if(it == '('){
-			st.push(it);
-			flag = false;
-		}else if(it == ')'){
-			st.pop();
-			if(flag){
-				ans++;
-			}else{
+	
+	for(int i = 0; i < s.length(); ++i){
+		if(s[i] == '(') st.push(s[i]);
+		else{
+			if(s[i-1] == '('){
+				st.pop();
 				ans += st.size();
+			}else{
+				st.pop();
+				ans++;
 			}
-			flag = true;
 		}
 	}
+	
 	cout << ans << '\n';
 	
 	return 0;
