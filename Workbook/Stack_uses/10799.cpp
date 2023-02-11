@@ -9,12 +9,23 @@ int main(){
 	cin >> s;
 	
 	stack<char> st;
-	
+	int ans = 0;
+	bool flag = false;
 	for(auto it : s){
-		st.push(it);
-		cout << it << '\n';
+		if(it == '('){
+			st.push(it);
+			flag = false;
+		}else if(it == ')'){
+			st.pop();
+			if(flag){
+				ans++;
+			}else{
+				ans += st.size();
+			}
+			flag = true;
+		}
 	}
-	
+	cout << ans << '\n';
 	
 	return 0;
 }
