@@ -36,9 +36,10 @@ int main(){
 			s.pop();
 			num /= 3;
 		}
+		cout << num << ' ';
 	}
-	
-	if(s.empty()) cout << sum;
+	cout << '\n';
+	if(s.empty()) cout << sum << '\n';
 	else cout << 0;
 	
 	return 0;
