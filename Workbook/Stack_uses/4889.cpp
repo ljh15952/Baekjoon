@@ -5,11 +5,38 @@ using namespace std;
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
 	
+	int ord = 0;
+	
 	while(1){
+		ord++;
 		string s;
 		getline(cin, s);
 		if(s[0] == '-') break;
 		
+		stack<char> st;
+		int cnt = 0;
+
+		for(auto it : s){
+			if(st.empty()) st.push(it);
+			else{
+				if(it == '}' && st.top() == '{'){
+					st.pop();
+				}else{
+					st.push(it);
+				}
+			}
+		}	
+		
+		while(!st.empty()){
+			char c1 = st.top();
+			st.pop();
+			char c2 = st.top();
+			st.pop();
+			
+			if(c1 == c2) cnt++;
+			else cnt+=2;
+		}
+		cout << ord << ". " << cnt << '\n';
 	}
 	
 	
