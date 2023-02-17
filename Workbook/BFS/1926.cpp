@@ -21,28 +21,34 @@ int main(){
 	for(int i = 0; i < n; i++)
     for(int j = 0; j < m; j++)
       cin >> board[i][j];
-  cout << board[0][0];
+
+	int maxSize = 0;
+	int num = 0; // 그림의 수
+	for(int i = 0; i < n; ++i){
+		for(int j = 0; j < m; ++j){
+			if(board[i][j] == 0 || vis[i][j]) continue;
+			num++;
+			queue<pair<int,int>> Q;
+			vis[i][j] = 1;
+			Q.push({i,j});
+			int area = 0;
+			while(!Q.empty()){
+				area++;
+				pair<int,int> cur = Q.front(); Q.pop();
+				for(int dir = 0; dir < 4; dir++){
+					int nx = cur.X + dx[dir];
+					int ny = cur.Y + dy[dir];
+					if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+					if(vis[nx][ny] || board[nx][ny] != 1) continue;
+					vis[nx][ny] = 1;
+					Q.push({nx,ny});
+				}
+			}
+			maxSize = max(maxSize, area);
+		}
+	}
 	
-	// for(int i = 0; i < n; i++){
-	// 	for(int j = 0; j < m; j++){
-	// 		cin >> board[i][j];
-	// 	}
-	// }
-	// cout << board[0][0];
-	// queue<int> Q;
-	// int maxSize = 0;
-	// for(int i = 0; i < n; ++i){
-	// 	for(int j = 0; j < m; ++j){
-	// 		if(vis[i][j] != 1){
-	// 			int size = 0;
-				
-				
-				
-	// 			maxSize = max(maxSize,size);
-	// 		}
-	// 	}
-	// }
-	
+	cout << num << '\n' << maxSize;
 	
 	
 	return 0;
