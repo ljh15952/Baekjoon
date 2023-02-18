@@ -40,7 +40,7 @@ int main(){
 					int nx = cur.X + dx[dir];
 					int ny = cur.Y + dy[dir];
 					
-					if(nx < 0 || nx >= m || ny < 0 || ny > n) continue;
+					if(nx < 0 || nx >= n || ny < 0 || ny > m) continue;
 					if(board[ny][nx] == 0 || 
 						 visited[ny][nx] == 1) continue;
 					
