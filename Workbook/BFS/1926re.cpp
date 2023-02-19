@@ -2,8 +2,8 @@
 
 using namespace std;
 
-#define X first
-#define Y second
+#define X second
+#define Y first
 
 int n, m; //n행 m열
 int board[502][502];
@@ -24,36 +24,38 @@ int main(){
 			cin >> board[i][j];
 	
 	
-	int area = 0;
+	int num = 0;
+	int mx = 0;
 	for(int i = 0; i < n; ++i){
 		for(int j = 0; j < m; ++j){
 			if(visited[i][j] == 1 || board[i][j] == 0) continue;
 			queue<pair<int,int>> Q;
 			Q.push({i,j});
 			visited[i][j] = 1;
-			area++;
+			num++;
 			
+			int area = 0;
 			while(!Q.empty()){
+				area++;
 				pair<int,int> cur = Q.front(); Q.pop();
 				
 				for(int dir = 0; dir < 4; ++dir){
 					int nx = cur.X + dx[dir];
 					int ny = cur.Y + dy[dir];
 					
-					if(nx < 0 || nx >= n || ny < 0 || ny > m) continue;
+					if(nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
 					if(board[ny][nx] == 0 || 
 						 visited[ny][nx] == 1) continue;
 					
 					visited[ny][nx] = 1;
 					Q.push({ny, nx});
-					
 				}
-				
 			}
+			mx = max(area, mx);
 		}
 	}
 	
-	cout << area << '\n';
+	cout << num << '\n' << mx;
 	
 	return 0;
 }
