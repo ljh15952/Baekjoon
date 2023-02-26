@@ -10,48 +10,59 @@ int dy[4] = {1,0,-1,0};
 
 int R, C;
 
-char board[1001][1001];
-int dist[1001][1001]
-
-queue<pair<int,int>> Q;
-
-int minute = 0;
+string board[1002];
+int dist1[1002][1002]; // 불의 전파 시간
+int dist2[1002][1002]; // 지훈이의 이동 시간
 
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
 	
 	cin >> R >> C;
 	
-	int curY, curX;
+	for(int i = 0; i < C; ++i){
+		fill(dist1[i], dist1[i] + R, -1);
+		fill(dist2[i], dist2[i] + R, -1);
+	}
+	
+	for(int i = 0; i < C; ++i)
+		cin >> board[i];	
+	
+	queue<pair<int,int>> Q1;
+	queue<pair<int,int>> Q2;
 	
 	for(int i = 0; i < R; ++i){
 		for(int j = 0; j < C; ++j){
-			cin >> board[i][j];
-			if(board[i][j] == 'J') Q.push({i,j});
+			if(board[i][j] == 'F'){
+				Q1.push({i,j});
+				dist1[i][j] = 0;
+			}else if(board[i][j] == 'J'){
+				Q2.push({i,j});
+				dist2[i][j] = 0;
+			}
 		}
 	}
 	
-	while(!Q.empty()){
-		auto cur = Q.front(); q.pop();
+	// 불 BFS
+	while(!Q1.empty()){
+		auto cur = Q1.front(); Q1.pop();
 		
 		for(int i = 0; i < 4; ++i){
 			int nx = cur.X + dx[i];
 			int ny = cur.Y + dy[i];
+			
+			if(nx < 0 || nx >= R || ny < 0 || ny >= C) continue;
+			if(dist1[ny][nx] >= 0 || board[ny][nx] == '#') continue;
+			Q1.push({ny,nx});
+			dist1[ny][nx] = dist1[cur.Y][cur.X] + 1;
 		}
-		
-		
-		
-		
-		
 	}
 	
-	int ans = 0;
-	for(int i = 0; i < R; ++i)
-		for(int j = 0; j < C; ++j)
-			ans = min(dist[i][j], ans);
-	
-	if(ans == 0) cout << "IMPOSSIBLE\n";
-	else cout << ans << '\n';
+	for(int i = 0; i < R; ++i){
+		for(int j = 0; j < C; ++j){
+			cout << dist1[i][j] << ' ';
+		}
+		cout << '\n';
+	}
 	
 	return 0;
 }
