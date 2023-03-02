@@ -2,25 +2,61 @@
 
 using namespace std;
 
-#define Y first
-#define X second
+int board[103][103][103];
+int dist[103][103][103];
 
-int board[102][102][102];
+int dx[6] = {0,0,1,-1,0,0};
+int dy[6] = {1,-1,0,0,0,0};
+int dz[6] = {0,0,0,0,1,-1};
+
+queue<tuple<int,int,int>> Q;
+
+int m,n,h;
 
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE" << '\n';
+	cin >> m >> n >> h;
 	
-	int b[3][2][1] = {[[0],[1]],
-									 [[2],[3]],
-									 [[4],[5]]};
+	for(int i = 0; i < h; ++i){
+		for(int j = 0; j < n; ++j){
+			for(int k = 0; k < m; ++k){
+				cin >> board[i][j][k];
+				if(board[i][j][k] == 1) Q.push({i,j,k});
+				if(board[i][j][k] == 0) dist[i][j][k] = -1;
+			}
+		}
+	}
 	
+	while(!Q.empty()){
+		auto cur = Q.front(); Q.pop();
+		int curX, curY, curZ;
+		tie(curZ,curY,curX) = cur;
+		for(int i = 0; i < 6; ++i){
+			int nx = curX + dx[i];
+			int ny = curY + dy[i];
+			int nz = curZ + dz[i];
+			if(nx < 0 || nx >= m || ny < 0 || ny >= n || nz < 0 || nz >= h) continue;
+			if(dist[nz][ny][nx] >= 0) continue;
+			dist[nz][ny][nx] = dist[curZ][curY][curX] + 1;
+			Q.push({nz,ny,nx});
+		}
+	}
 	
-	cout << b[0][0][0] << '\n';
+	int ans = 0;
+	for(int i = 0; i < h; ++i){
+		for(int j = 0; j < n; ++j){
+			for(int k = 0; k < m; ++k){
+				if(dist[i][j][k] == -1){
+					cout << -1 << '\n';
+					return 0;
+				}
+				ans = max(ans, dist[i][j][k]);
+			}
+		}
+	}
 	
-	
-	
+	cout << ans << '\n';
 	
 	return 0;
 }
