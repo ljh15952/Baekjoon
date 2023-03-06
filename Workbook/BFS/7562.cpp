@@ -5,17 +5,48 @@ using namespace std;
 #define Y first
 #define X second
 
-int nx[6] = {};
-int ny[6] = {};
+int dx[8] = {-2,-1,1,2,2,1,-1,-2};
+int dy[8] = {1,2,2,1,-1,-2,-2,-1};
 
 int board[300][300];
-
 
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE" << '\n';
+	int t;
+	cin >> t;
+	
+	while(t--){
+		int I;
+		cin >> I;
+	
+		for(int i = 0; i < I; ++i) fill(board[i], board[i] + I, -1);
+		
+		int kx, ky;
+		cin >> ky >> kx;
+
+		int tx, ty;
+		cin >> ty >> tx;
+
+		queue<pair<int,int>> Q;
+		Q.push({ky, kx});
+		board[ky][kx] = 0;
+		while(!Q.empty()){
+			auto cur = Q.front(); Q.pop();
+
+			for(int i = 0; i < 8; ++i){
+				int nx = cur.X + dx[i];
+				int ny = cur.Y + dy[i];
+
+				if(ny < 0 || nx < 0 || nx >= I || ny >= I) continue;
+				if(board[ny][nx] >= 0) continue;
+				board[ny][nx] = board[cur.Y][cur.X] + 1;
+				Q.push({ny,nx});
+			}
+		}
+		cout << board[ty][tx] << '\n';
+	}
 	
 	return 0;
 }
