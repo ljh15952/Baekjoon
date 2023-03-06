@@ -2,6 +2,15 @@
 
 using namespace std;
 
+#define Y first
+#define X second
+
+int nx[6] = {};
+int ny[6] = {};
+
+int board[300][300];
+
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
