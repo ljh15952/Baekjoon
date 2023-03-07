@@ -5,7 +5,7 @@ using namespace std;
 int T;
 int w, h; // 너비와 높이
 
-int board[1001][1001];
+string board[1001];
 
 int main(){
 	
@@ -14,9 +14,7 @@ int main(){
 	cin >> w >> h;
 	
 	for(int i = 0; i < h; ++i){
-		for(int j = 0; j < w; ++j){
-			
-		}
+		cin >> board[i];
 	}
 	
 	
