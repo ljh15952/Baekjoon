@@ -2,6 +2,11 @@
 
 using namespace std;
 
+#define Y first
+#define X second
+
+int dx[4] = {0,1,0,-1};
+int dy[4] = {1,0,-1,0};
 
 int M, N, K;
 
@@ -24,23 +29,44 @@ int main(){
 		}
 	}
 	
-	/*
-		0 0 0 0 1 1 0
-		0 1 0 0 1 1 0
-		1 1 1 1 0 0 0
-		1 1 1 1 0 0 0
-		0 1 0 0 0 0 0
-	
-	
-	*/
+	queue<pair<int,int>> Q;
+	int ct = 0;
+	vector<int> size;
 	
 	for(int i = 0; i < M; ++i){
 		for(int j = 0; j < N; ++j){
-			cout << board[i][j] << ' ';
+			if(board[i][j] > 0) continue;
+			
+			Q.push({i,j});
+			board[i][j] = 2;
+			ct++;
+			
+			int s = 0;
+			while(!Q.empty()){
+				auto cur = Q.front(); Q.pop();
+				s++;
+				for(int dir = 0; dir < 4; dir++){
+					int nx = dx[dir] + cur.X;
+					int ny = dy[dir] + cur.Y;
+					
+					if(nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+					if(board[ny][nx] > 0) continue;
+					
+					board[ny][nx] = 2;
+					Q.push({ny,nx});
+				}
+			}
+			size.push_back(s);
 		}
-		cout << '\n';
 	}
+
+	cout << ct << '\n';
 	
+	sort(size.begin(), size.end());
+	for(auto it : size){
+		cout << it << ' ';
+	}
+	cout << '\n';
 	
 	return 0;
 }
