@@ -20,7 +20,7 @@ bool OOB(int y, int x){
 int bfs(){
 	for(int i = 0; i < N; ++i)
 		for(int j = 0; j < M; ++j)
-			dist[i][j][0] = -1;
+			dist[i][j][0] = dist[i][j][1] = -1;
 	
 	dist[0][0][0] = 1;
 	
@@ -31,20 +31,28 @@ int bfs(){
 		tie(y,x,broken) = q.front();
 		q.pop();
 		
+		if(x == M-1 && y == N-1) return dist[y][x][broken];
+		
 		for(int i = 0; i < 4; ++i){
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 			
 			if(OOB(ny,nx)) continue;
-			if(dist[ny][nx][0] > 0) continue;
-			if(board[ny][nx] == '1') continue;
 
-			dist[ny][nx][0] = dist[x][y][0] + 1;
-			q.push({ny,nx,0});
+			if(board[ny][nx] == '0' && dist[ny][nx][broken] == -1){
+				dist[ny][nx][broken] = dist[y][x][broken] + 1;
+				q.push({ny,nx,broken});
+			}
+			
+			// 벽을 부수는 경우
+			if(!broken && board[ny][nx] == '1' && dist[ny][nx][1] == -1){
+				dist[ny][nx][1] = dist[y][x][broken] + 1;
+				q.push({ny,nx,1});
+			}
 		}
 		
 	}
-	return 1;
+	return -1;
 }
 
 int main(){
@@ -64,10 +72,22 @@ int main(){
 		}	
 		cout << '\n';
 	}
-	
+	cout << '\n';
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < M; ++j){
+			cout << dist[i][j][1] << ' ';
+		}	
+		cout << '\n';
+	}
 	return 0;
 }
 
 /*
-
+6 4
+0000
+0000
+1000
+0000
+0111
+0000
 */
