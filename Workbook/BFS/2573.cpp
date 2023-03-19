@@ -2,14 +2,114 @@
 
 using namespace std;
 
-int main(){
-	ios::sync_with_stdio(0); cin.tie(0);
+#define Y first
+#define X second
+
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+
+int N, M;
+
+int board[300][300];
+int vis[300][300];
+
+int year = 0;
+
+
+bool OOB(int y, int x){
+	return (x < 0 || y < 0 || x >= M || y >= N);
+}
+
+void melting(){
+	int zero[303][303] = {0,};
 	
-	cout << "QWE" << '\n';
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < M; ++j){
+			if(board[i][j] == 0) continue;
+			for(int dir = 0; dir < 4; ++dir){
+				int nx = j + dx[dir];
+				int ny = i + dy[dir];
+				if(OOB(ny,nx) || board[ny][nx] > 0) continue;
+				zero[i][j]++;
+			}
+		}
+	}
+	
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < M; ++j){
+			board[i][j] = max(0, board[i][j] - zero[i][j]);	
+		}
+	}
+}
+
+int BFS(){
+	int ct = 0;
+	queue<pair<int,int>> Q;
+	
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < M; ++j){
+			if(board[i][j] == 0 || vis[i][j]) continue;
+			
+			Q.push({i,j});
+			while(!Q.empty()){
+				auto cur = Q.front(); Q.pop();
+				
+				ct++;
+				for(int dir = 0; dir < 4; dir++){
+					int nx = cur.X + dx[dir];
+					int ny = cur.Y + dy[dir];
+					
+					if(OOB(ny,nx) || board[ny][nx] == 0) continue;
+					if(vis[ny][nx] == 1) continue;
+					
+					vis[ny][nx] = 1;
+					Q.push({ny,nx});
+				}
+			}
+		}
+	}
 	
 	return 0;
 }
 
+int main(){
+	ios::sync_with_stdio(0); cin.tie(0);
+	
+	cin >> N >> M; // N행 M열
+	
+	for(int i = 0; i < N; ++i)
+		for(int j = 0; j < M; ++j)
+			cin >> board[i][j];
+	
+	while(1){
+		year++;
+		melting();
+		for(int i = 0; i < N; ++i) fill(vis[i], vis[i] + M, 0);
+		
+		int ct = BFS(); // BFS함수에서 땅 덩이의 개수 반환
+		if(ct == 2){
+			cout << year << '\n';
+			return 0;
+		}else if(ct == 0){
+			cout << "0\n";
+			return 0;
+		}
+		
+	}
+	
+	return 0;
+}
+/*
+0 0 0 0 0 0 0
+0 1 4 5 3 0 0
+0 3 0 1 5 1 0
+0 7 6 1 4 0 0
+0 0 0 0 0 0 0
+
+0 2 3
+1 3 4
+
+*/
 /*
 빙산
 지구 온난화로 북극의 빙산이 녹고 있다.
