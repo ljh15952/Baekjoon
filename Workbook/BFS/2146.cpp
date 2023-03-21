@@ -2,14 +2,101 @@
 
 using namespace std;
 
+int N;
+int board[100][100];
+queue<tuple<int,int,int>> Q;
+
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+
+bool OOB(int y, int x){
+	return (x < 0 || y < 0 || x >= N || y >= N);
+}
+
+void DivideLand(){
+	
+	int tag = 0;
+	
+	queue<tuple<int,int,int>> q;
+	int vis[N][N] = {0,};
+	
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < N; ++j){
+			if(board[i][j] == 0 || vis[i][j] == 1) continue;
+			
+			q.push({i,j,tag});
+			Q.push({i,j,tag});
+			
+			vis[i][j] = 1;
+			
+			while(!q.empty()){
+				int x,y,t;
+				tie(y,x,t) = q.front(); q.pop();
+				
+				for(int i = 0; i < 4; ++i){
+					int nx = x + dx[i];
+					int ny = y + dy[i];
+
+					if(OOB(ny,nx)) continue;
+					if(board[ny][nx] == 0) continue;
+					if(vis[ny][nx] == 1) continue;
+					
+					vis[ny][nx] = 1;
+					q.push({ny,nx,tag});
+					Q.push({ny,nx,tag});
+				}
+			}
+			tag++;
+		}
+	}
+}
+
+int getMinDistance(){
+	
+	
+	return -1;
+}
+
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE";
+	cin >> N;
 	
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < N; ++j){
+			cin >> board[i][j];
+		}
+	}
+		
+	
+	DivideLand();
+	cout << getMinDistance() << '\n';
+	
+	while(!Q.empty()){
+		int x,y,t;
+		tie(y,x,t) = Q.front(); Q.pop();
+		cout << y << ' ' << x << ' ' << t << '\n';
+	}
 	
 	return 0;
 }
+
+/*
+10
+1 1 0 0 0 0 0 0 0 0
+1 1 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 0 1
+
+
+*/
+
 
 /*
 다리 만들어 버리기
