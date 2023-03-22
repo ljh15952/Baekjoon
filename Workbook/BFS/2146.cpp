@@ -2,9 +2,14 @@
 
 using namespace std;
 
+#define Y first
+#define X second
+
 int N;
 int board[100][100];
-queue<tuple<int,int,int>> Q;
+
+bool vis[101][101]; // 섬 분류
+int dist[101][101]; // 다리의 길이
 
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,1,0,-1};
@@ -15,35 +20,30 @@ bool OOB(int y, int x){
 
 void DivideLand(){
 	
-	int tag = 0;
-	
-	queue<tuple<int,int,int>> q;
-	int vis[N][N] = {0,};
+	int tag = 1;
 	
 	for(int i = 0; i < N; ++i){
 		for(int j = 0; j < N; ++j){
 			if(board[i][j] == 0 || vis[i][j] == 1) continue;
 			
-			q.push({i,j,tag});
-			Q.push({i,j,tag});
+			queue<pair<int,int>> Q;
+			Q.push({i,j});
+			vis[i][j] = true;
 			
-			vis[i][j] = 1;
-			
-			while(!q.empty()){
-				int x,y,t;
-				tie(y,x,t) = q.front(); q.pop();
+			while(!Q.empty()){
 				
+				auto cur = Q.front(); Q.pop();
+				board[cur.Y][cur.X] = tag;
 				for(int i = 0; i < 4; ++i){
-					int nx = x + dx[i];
-					int ny = y + dy[i];
+					int nx = cur.X + dx[i];
+					int ny = cur.Y + dy[i];
 
 					if(OOB(ny,nx)) continue;
 					if(board[ny][nx] == 0) continue;
 					if(vis[ny][nx] == 1) continue;
 					
-					vis[ny][nx] = 1;
-					q.push({ny,nx,tag});
-					Q.push({ny,nx,tag});
+					vis[ny][nx] = true;
+					Q.push({ny,nx});
 				}
 			}
 			tag++;
@@ -51,11 +51,27 @@ void DivideLand(){
 	}
 }
 
-int getMinDistance(){
+// int getMinDistance(){
 	
+// 	while(!Q.empty()){
+// 		int x,y,t;
+// 		tie(y,x,t) = Q.front(); Q.pop();
+		
+// 		for(int i = 0; i < 4; ++i){
+// 			int nx = x + dx[i];
+// 			int ny = y + dy[i];
+			
+// 			if(board[ny][nx] == 1){
+				
+// 			}
+			
+			
+// 		}
+		
+// 	}
 	
-	return -1;
-}
+// 	return min(distances.begin(),distances.end());
+// }
 
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
@@ -67,16 +83,30 @@ int main(){
 			cin >> board[i][j];
 		}
 	}
-		
+	
+	cout << '\n';
 	
 	DivideLand();
-	cout << getMinDistance() << '\n';
 	
-	while(!Q.empty()){
-		int x,y,t;
-		tie(y,x,t) = Q.front(); Q.pop();
-		cout << y << ' ' << x << ' ' << t << '\n';
+	for(int i = 0; i < N; ++i) fill(dist[i],dist[i]+N, -1);
+	queue<pair<int,int>> Q;
+	
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < N; ++j){
+			//https://github.com/encrypted-def/basic-algo-lecture/blob/master/0x09/solutions/2146_1.cpp
+			// 나중에 하자..
+		}
 	}
+	
+//	cout << getMinDistance() << '\n';
+	
+	for(int i = 0; i < N; ++i){
+		for(int j = 0; j < N; ++j){
+			cout << board[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+		
 	
 	return 0;
 }
