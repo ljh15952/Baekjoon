@@ -51,10 +51,11 @@ int BFS(){
 			if(board[i][j] == 0 || vis[i][j]) continue;
 			
 			Q.push({i,j});
+			ct++;
+			
 			while(!Q.empty()){
 				auto cur = Q.front(); Q.pop();
 				
-				ct++;
 				for(int dir = 0; dir < 4; dir++){
 					int nx = cur.X + dx[dir];
 					int ny = cur.Y + dy[dir];
@@ -68,8 +69,7 @@ int BFS(){
 			}
 		}
 	}
-	
-	return 0;
+	return ct;
 }
 
 int main(){
@@ -87,7 +87,7 @@ int main(){
 		for(int i = 0; i < N; ++i) fill(vis[i], vis[i] + M, 0);
 		
 		int ct = BFS(); // BFS함수에서 땅 덩이의 개수 반환
-		if(ct == 2){
+		if(ct >= 2){
 			cout << year << '\n';
 			return 0;
 		}else if(ct == 0){
