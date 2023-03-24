@@ -51,28 +51,6 @@ void DivideLand(){
 	}
 }
 
-// int getMinDistance(){
-	
-// 	while(!Q.empty()){
-// 		int x,y,t;
-// 		tie(y,x,t) = Q.front(); Q.pop();
-		
-// 		for(int i = 0; i < 4; ++i){
-// 			int nx = x + dx[i];
-// 			int ny = y + dy[i];
-			
-// 			if(board[ny][nx] == 1){
-				
-// 			}
-			
-			
-// 		}
-		
-// 	}
-	
-// 	return min(distances.begin(),distances.end());
-// }
-
 int main(){
 	ios::sync_with_stdio(0); cin.tie(0);
 	
@@ -84,8 +62,6 @@ int main(){
 		}
 	}
 	
-	cout << '\n';
-	
 	DivideLand();
 	
 	for(int i = 0; i < N; ++i) fill(dist[i],dist[i]+N, -1);
@@ -93,20 +69,36 @@ int main(){
 	
 	for(int i = 0; i < N; ++i){
 		for(int j = 0; j < N; ++j){
-			//https://github.com/encrypted-def/basic-algo-lecture/blob/master/0x09/solutions/2146_1.cpp
-			// 나중에 하자..
+			if(board[i][j] != 0){
+				dist[i][j] = 0;
+				Q.push({i, j});
+			}
 		}
 	}
 	
-//	cout << getMinDistance() << '\n';
-	
-	for(int i = 0; i < N; ++i){
-		for(int j = 0; j < N; ++j){
-			cout << board[i][j] << ' ';
-		}
-		cout << '\n';
-	}
+	int ans = 99999;
+	while(!Q.empty()){
+		auto cur = Q.front(); Q.pop();
 		
+		for(int i = 0; i < 4; ++i){
+			int nx = cur.X + dx[i];
+			int ny = cur.Y + dy[i];
+			
+			if(OOB(ny,nx)) continue;
+			if(board[ny][nx] == board[cur.Y][cur.X]) continue; // 인접한 섬
+			
+			if(board[ny][nx] != 0){
+				ans = min(ans,dist[ny][nx] + dist[cur.Y][cur.X]);
+			}
+			else{ //바다 일 경우
+				board[ny][nx] = board[cur.Y][cur.X];
+				dist[ny][nx] = dist[cur.Y][cur.X] + 1;
+				Q.push({ny,nx});
+			}
+		}	
+	}
+	
+	cout << ans << '\n';
 	
 	return 0;
 }
