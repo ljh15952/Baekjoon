@@ -2,14 +2,55 @@
 
 using namespace std;
 
+int board[100001];
+int N, K; // 수빈, 동생
+
 int main(){
+  ios::sync_with_stdio(0); cin.tie(0);
     
-    ios::sync_with_stdio(0); cin.tie(0);
-    
-    cout << "QWE" << '\n';
-    
-    return 0;
+	cin >> N >> K;
+	
+	fill(board, board + K + 1, -1); 
+	// 마지막값에서 -1로 이동하여 찾는 수밖에 없으니
+	// 필요한 배열의 크기는 K + 1 이다.
+	
+	board[N] = 0;
+	
+	queue<int> Q;
+	Q.push(N);
+	
+	while(!Q.empty()){
+		auto cur = Q.front(); Q.pop();
+		
+		if(board[cur + 1] != -1 || cur + 1 < K + 1){
+			Q.push(cur + 1);
+			board[cur + 1] = board[cur] + 1;
+		} 
+		if(cur > 0board[cur - 1] != -1 || ){
+			Q.push(cur - 1);
+			board[cur - 1] = board[cur] + 1;
+		}
+		if(board[cur * 2] != -1 || cur * 2 < K + 1){
+			Q.push(cur * 2);
+			board[cur * 2] = 0;
+		}
+	}
+	
+	for(int i = 0; i < K + 1; ++i){
+		cout << board[i] << ' ';
+	}
+		
+		
+		    
+  return 0;
 }
+
+/*
+N 큐에 넣고
+10만보다 작은 N*2의 값 0초니깐 다 큐에 넣음
+
+
+*/
 
 /*
 숨바꼭질
