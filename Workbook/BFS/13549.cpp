@@ -22,24 +22,28 @@ int main(){
 	while(!Q.empty()){
 		auto cur = Q.front(); Q.pop();
 		
-		if(board[cur + 1] != -1 || cur + 1 < K + 1){
+		if(cur * 2 < K + 1 && board[cur * 2] == -1){
+			Q.push(cur * 2);
+			board[cur * 2] = board[cur];
+		}
+		
+		if(cur + 1 < K + 1 && board[cur + 1] == -1){
 			Q.push(cur + 1);
 			board[cur + 1] = board[cur] + 1;
 		} 
-		if(cur > 0board[cur - 1] != -1 || ){
+    	
+		if(cur > 0 && board[cur - 1] == -1){
 			Q.push(cur - 1);
 			board[cur - 1] = board[cur] + 1;
 		}
-		if(board[cur * 2] != -1 || cur * 2 < K + 1){
-			Q.push(cur * 2);
-			board[cur * 2] = 0;
-		}
+	
 	}
 	
 	for(int i = 0; i < K + 1; ++i){
-		cout << board[i] << ' ';
+		cout << i << ": " << board[i] << '\n';
 	}
-		
+	
+	cout << board[K];
 		
 		    
   return 0;
