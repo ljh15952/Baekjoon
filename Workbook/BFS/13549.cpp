@@ -10,40 +10,38 @@ int main(){
     
 	cin >> N >> K;
 	
-	fill(board, board + K + 1, -1); 
-	// 마지막값에서 -1로 이동하여 찾는 수밖에 없으니
-	// 필요한 배열의 크기는 K + 1 이다.
+	fill(board, board + 100001, -1); 
 	
 	board[N] = 0;
 	
-	queue<int> Q;
-	Q.push(N);
+	deque<int> Q;
+	Q.push_back(N);
 	
 	while(!Q.empty()){
-		auto cur = Q.front(); Q.pop();
+		auto cur = Q.front(); Q.pop_front();
 		
-		if(cur * 2 < K + 1 && board[cur * 2] == -1){
-			Q.push(cur * 2);
+		if(cur * 2 < 100001 && board[cur * 2] == -1){
+			Q.push_front(cur * 2);
 			board[cur * 2] = board[cur];
 		}
 		
-		if(cur + 1 < K + 1 && board[cur + 1] == -1){
-			Q.push(cur + 1);
+		if(cur + 1 < 100001 && board[cur + 1] == -1){
+			Q.push_back(cur + 1);
 			board[cur + 1] = board[cur] + 1;
 		} 
     	
 		if(cur > 0 && board[cur - 1] == -1){
-			Q.push(cur - 1);
+			Q.push_back(cur - 1);
 			board[cur - 1] = board[cur] + 1;
 		}
 	
 	}
 	
-	for(int i = 0; i < K + 1; ++i){
-		cout << i << ": " << board[i] << '\n';
-	}
+	// for(int i = 0; i < 20; ++i){
+	// 	cout << i << ": " << board[i] << '\n';
+	// }
 	
-	cout << board[K];
+	cout << board[K] << '\n';
 		
 		    
   return 0;
