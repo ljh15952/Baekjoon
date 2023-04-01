@@ -2,17 +2,14 @@
 
 using namespace std;
 
-#define first Y
-#define second X
-
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,1,0,-1};
 
 int N, M, K;
 
-char board[1001][1001];
+string board[1002];
 
-int dist[2][1001][1001];
+int dist[12][1002][1002];
 
 queue<tuple<int,int,int>> Q;
 
@@ -22,39 +19,37 @@ int main(){
 	cin >> N >> M >> K;
 	
 	for(int i = 0; i < N; ++i){
-		for(int j = 0; j < M; ++j){
-			cin >> board[i][j];
-		}
+		cin >> board[i];
 	}
 	
 	Q.push({0,0,0});
 	dist[0][0][0] = 1;
-	dist[1][0][0] = 1;
 	
 	while(!Q.empty()){
 		int x,y,z;
 		tie(z,y,x) = Q.front(); Q.pop();
+		
+		if(x == M - 1 && y == N - 1){
+			cout << dist[z][y][x] << '\n';
+			return 0;
+		}
 		
 		for(int i = 0; i < 4; ++i){
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 			
 			if(nx < 0 || ny < 0 || nx >= M || ny >= N) continue;
-			if(dist[z][ny][nx] > 0) continue;
-			if(board[ny][nx] == '1') continue;
 			
-			dist[z][ny][nx] = dist[z][y][x] + 1;
-			Q.push({z,ny,nx});
+			int nz = z;
+			if(board[ny][nx] == '1') nz++;
+			
+			if(nz > K || dist[nz][ny][nx] > 0) continue;
+			
+			dist[nz][ny][nx] = dist[z][y][x] + 1;
+			Q.push({nz,ny,nx});
 		}
 	}
-	
-	for(int i = 0; i < N; ++i){
-		for(int j = 0; j < M; ++j){
-			cout << dist[0][i][j] << ' ';
-		}
-		cout << '\n';
-	}
-	
+	cout << -1;
 	return 0;
 }
 
