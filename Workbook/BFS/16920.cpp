@@ -38,6 +38,14 @@ int main(){
 	while(1){
 		bool isExtend = 0;
 		
+		for(int i = 0; i < N; ++i){
+			for(int j = 0; j < M; ++j){
+				cout << canExtend[i][j] << ' ';	
+			}
+			cout << '\n';
+		}
+		cout << '\n';
+		
 		for(int i = 1; i <= P; ++i){
 			queue<tuple<int,int,int>> nextQ;
 			while(!Q[i].empty()){
@@ -52,19 +60,21 @@ int main(){
 					int x = curx + dx[dir];
 					int y = cury + dy[dir];
 					if(x < 0 || x >= N || y < 0 || y >= M) continue;
-					if(!canExtend[x][y]) continue;
+					if(canExtend[x][y] <= 0) continue;
 					Q[i].push({x,y,curstep+1});
-					canExtend[x][y] = 0;
+					canExtend[x][y] = -i;
 					area[i]++;
 					isExtend = 1;
 				}
 			}
 			Q[i] = nextQ;
 		}
+		
+		
 		// 아무도 영토를 확장하지 못하여 게임이 끝났는지 확인
 		if(!isExtend) break;
 	}
-	
+	cout << '\n';
 	for(int i = 1; i <= P; ++i)
 		cout << area[i] << " ";
 	cout << '\n';
@@ -72,6 +82,13 @@ int main(){
 }
 
 /*
+1..1
+#.##
+....
+...2
+
+
+
 
 
 
