@@ -2,14 +2,94 @@
 
 using namespace std;
 
+#define Y first 
+#define X second 
+
+int N, M;
+
+int board[101][101];
+bool vis[101][101];
+vector<pair<int,int>> adj[101][101];
+
+queue<pair<int,int>> Q;
+
+int dx[4] = {0,0,1,-1};
+int dy[4] = {1,-1,0,0};
+
+bool is_conn(pair<int,int> nxt){
+	for(int i = 0; i < 4; ++i){
+		int nx = nxt.X + dx[i];
+		int ny = nxt.Y + dy[i];
+		if(nx < 1 || ny < 1 || nx > N || ny > N) continue;
+		if(vis[ny][nx]) return 1;
+	}
+	return 0;
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE" << '\n';
+	cin >> N >> M;
 	
+	for(int i = 0; i < M; ++i){
+		int x, y, a, b;
+		cin >> x >> y >> a >> b;
+		adj[y][x].push_back({b,a});
+	}
+	
+	Q.push({1,1});
+	board[1][1] = 1;	
+	vis[1][1] = true;
+	
+	while(!Q.empty()){
+		auto cur = Q.front(); Q.pop();
+		
+		for(auto it : adj[cur.Y][cur.X]){
+			if(vis[it.Y][it.X]) continue;
+			if(is_conn(it)){
+				vis[it.Y][it.X] = 1;
+				Q.push({it.Y,it.X});
+			}
+			board[it.Y][it.X] = 1;
+		}
+		
+		for(int i = 0; i < 4; ++i){
+			int nx = dx[i] + cur.X;
+			int ny = dy[i] + cur.Y;
+			
+			if(nx < 1 || ny < 1 || nx > N || ny > N) continue;
+			if(vis[ny][nx]) continue;
+			if(board[ny][nx] == 0) continue;
+			vis[ny][nx] = true;
+			Q.push({ny,nx});
+		}
+	}
+	int ans = 0;
+ 	for (int i = 1; i <= N; i++)
+    	for (int j = 1; j <= N; j++) ans += board[i][j];
+	cout << ans << '\n';
+		
 	return 0;
 }
+
+/*
+3 6
+1 1 1 2
+2 1 2 2
+1 1 1 3
+2 3 3 1
+1 3 1 2
+1 3 2 1
+
+x x x x
+x 1 1 0
+x 1 1 0
+x 1 0 0
+
+
+*/
+
 
 /*
 불 켜기
