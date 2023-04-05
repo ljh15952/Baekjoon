@@ -4,12 +4,47 @@ using namespace std;
 
 int N, M;
 
+int speed = 1;
+
+#define MAX 500001
+int board[MAX];
+
+queue<int> Q;
 
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
 	cin >> N >> M;
+	
+	board[N] = 1;
+	Q.push(N);
+	
+	while(!Q.empty()){
+		int cur = Q.front(); Q.pop();
+		
+		for(int nv : {2 * cur, cur + 1, cur - 1}){
+			if(nv < 0 || nv > MAX) continue;
+			if(board[nv] > 0) continue;
+			
+			board[nv] = board[cur] + 1;
+
+			if(nv == M){
+				cout << board[nv] - 1 << '\n';
+				return 0;
+			}
+			
+			Q.push(nv);
+		}
+		M += speed++;
+	}
+	
+	// for(int i = 0; i < 20; ++i){
+	// 	cout << i << ": " << board[i]-1 << '\n';
+	// }
+	
+	//
+	
 	
 	return 0;
 }
