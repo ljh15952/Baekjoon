@@ -4,7 +4,7 @@ using namespace std;
 
 void func(){
 	
-	cout << "QWE" << '\n';
+	cout << "Qqwewqe" << '\n';
 	
 }
 
