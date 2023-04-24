@@ -5,13 +5,36 @@ using namespace std;
 int N;
 int board[2200][2200];
 
-void func(){
+
+int cnt[3];
+
+bool cheak(int x, int y, int n){
+	for(int i = x; i < x + n; ++i){
+		for(int j = y; j < y + n; ++j){
+			if(board[x][y] != board[i][j])
+				return false;
+		}
+	}
+	return true;
+}
+
+void func(int x, int y, int z){
 	
+	if(cheak(x, y, z)){
+		cnt[board[x][y]] += 1;
+		return;
+	}
+	
+	int n = z / 3;
+	for(int i = 0; i < 3; ++i){
+		for(int j = 0; j < 3; ++j){
+			func(x + i * n, y + j * n, n);
+		}
+	}
 }
 
 
 int main(){
-	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
 	cin >> N;
@@ -19,17 +42,14 @@ int main(){
 	for(int i = 0; i < N; ++i){
 		for(int j = 0; j < N; ++j){
 			cin >> board[i][j];
+			board[i][j]++;
 		}
 	}
 	
-	cout << '\n';
-	
-	for(int i = 0; i < N; ++i){
-		for(int j = 0; j < N; ++j){
-			cout << board[i][j] << ' ';		
-		}	
-		cout << '\n';
-	}
+	func(0, 0, N);
+
+	for(int i = 0; i < 3; ++i) 
+		cout << cnt[i] << '\n';
 	
 	return 0;
 } 
