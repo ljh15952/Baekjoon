@@ -2,16 +2,36 @@
 
 using namespace std;
 
+int num;
+int lotto[14];
+int ans[6];
+
+void dfs(int start, int depth){
+	if(depth == 6){
+		for(int i = 0; i < 6; ++i){
+			cout << ans[i] << ' ';
+		}
+		cout << '\n';
+		return;
+	}
+	
+	for(int i = start; i < num; ++i){
+		ans[depth] = lotto[i];
+		dfs(i + 1, depth + 1);
+	}
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	int n;
-	int arr[10];
-	cin >> n;
-	for(int i = 0; i < n; ++i) cin >> arr[i];
-	
-	for(int i = 0; i < n; ++i) cout << arr[i];
+	while(cin >> num && num){
+		for(int i = 0; i < num; ++i){
+			cin >> lotto[i];
+		}
+		dfs(0, 0);
+		cout << '\n';
+	}
 	
 	return 0;
 }
