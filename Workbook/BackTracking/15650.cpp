@@ -2,11 +2,40 @@
 
 using namespace std;
 
+int N, M;
+
+int arr[9];
+int isused[9];
+
+void func(int c){
+	
+	if(c == M){
+		for(int i = 0; i < M; ++i)
+			cout << arr[i] << ' ';
+		cout << '\n';
+		return;
+	}
+	
+	for(int i = 1; i <= N; ++i){
+		if(isused[i])
+			continue;
+		if(arr[c-1] > i)
+			continue;
+		arr[c] = i;
+		isused[i] = 1;
+		func(c+1);
+		isused[i] = 0;
+	}
+	
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE" << '\n';
+	cin >> N >> M;
+	
+	func(0);
 	
 	return 0;
 }
