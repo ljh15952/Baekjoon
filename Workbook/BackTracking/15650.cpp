@@ -16,7 +16,10 @@ void func(int c){
 		return;
 	}
 	
-	for(int i = 1; i <= N; ++i){
+	int st = 1; // 시작지점, k = 0일 때에는 st = 1
+    if(c != 0) st = arr[c-1] + 1; // k != 0일 경우 st = arr[k-1]+1
+	
+	for(int i = st; i <= N; ++i){
 		if(isused[i])
 			continue;
 		if(arr[c-1] > i)
