@@ -18,10 +18,13 @@ void func(int k){
 	
 	
 	
+	int st = 1;
+	
 	for(int i = 0; i < n; ++i){
 		
 		if(isused[i])
 			continue;
+		
 		
 		
 		
