@@ -5,7 +5,6 @@ using namespace std;
 int n,m;
 int arr[10];
 int num[10];
-int isused[10];
 
 void func(int k){
 	
@@ -18,16 +17,15 @@ void func(int k){
 	
 	
 	
-	int st = 1;
+	int tmp = -1;
 	
 	for(int i = 0; i < n; ++i){
 		
-		if(isused[i])
-			continue;
-		
-		
-		
-		
+		if(tmp != num[i]){
+			arr[k] = num[i];
+			tmp = num[i];
+			func(k+1);
+		}
 		
 	}
 	
