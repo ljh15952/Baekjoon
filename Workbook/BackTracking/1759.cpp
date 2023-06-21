@@ -2,11 +2,55 @@
 
 using namespace std;
 
+int L, C;
+
+char chars[17];
+char arr[17];
+
+bool aeiou(char t){
+	return t == 'a' || t == 'e' || t == 'i' || t == 'o' || t == 'u';
+}
+
+void func(int k, int st){
+	
+	if(k == L){
+		int cnt1 = 0;
+		int cnt2 = 0;
+		
+		for(int i = 0; i < L; ++i){
+			if(aeiou(arr[i])) cnt1++;
+			else cnt2++;
+		}
+		
+		if(cnt1 >= 1 && cnt2 >= 2){
+			for(int i = 0; i < L; ++i){
+				cout << arr[i];
+			}
+			cout << '\n';
+		}
+		return;
+	}
+	
+	for(int i = st; i < C; ++i){
+		arr[k] = chars[i];
+		func(k+1, i+1);
+	}
+	
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "qrew" << '\n';
+	cin >> L >> C;
+	
+	for(int i = 0; i < C; ++i){
+		cin >> chars[i];
+	}
+	
+	sort(chars, chars + C);
+	
+	func(0, 0);
 	
 	return 0;
 }
