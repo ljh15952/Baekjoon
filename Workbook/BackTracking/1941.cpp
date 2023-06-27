@@ -1,52 +1,83 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
 using namespace std;
+char arr[5][5];
+int check[25], result = 0;
+struct info {
+	int x, y;
+};
+info tmp;
+vector<info> v;
+int dx[4] = { 0,1,0,-1 };
+int dy[4] = { -1,0,1,0 };
 
-int mx[4] = {0,1,0,-1};
-int my[4] = {1,0,-1,0};
-
-int main(){
-	
-	ios::sync_with_stdio(0); cin.tie(0);
-	
-	char arr[5][5];
-	
-	for(int i = 0; i < 5; i++){
-		for(int j = 0; j < 5; j++){
-			cin >> arr[i][j];
+bool check_near() {
+	queue<info> q;
+	bool flag[7] = { false, };
+	tmp.x = v[0].x;
+	tmp.y = v[0].y;
+	q.push(tmp);
+	flag[0] = true;
+	int cnt = 1;
+	while (!q.empty()) {
+		int cx = q.front().x;
+		int cy = q.front().y;
+		q.pop();
+		for (int k = 1; k < 7; k++) {
+			if (flag[k]) continue;
+			for (int i = 0; i < 4; i++) {
+				int nx = cx + dx[i];
+				int ny = cy + dy[i];				
+				if (nx == v[k].x && ny == v[k].y) {
+					tmp.x = nx;
+					tmp.y = ny;
+					q.push(tmp);
+					flag[k] = true;
+					cnt++;
+				}
+			}
 		}
 	}
-	
-	for(int i = 0; i < 5; i++){
-		for(int j = 0; j < 5; j++){
-			cout << arr[i][j] << ' ';
-		}
-		cout << '\n';
-	}
-	
-	return 0;
+	if (cnt == 7) return true;
+	else return false;
 }
 
-/*
-소문난 7공주
+void dfs(int idx, int lee, int lim) {
+	if (lee + lim == 7) {
+		if (lim > lee) return;
+		if (check_near())
+			result++;
+		return;
+	}
+	for (int i = idx; i < 25; i++) {
+		if (check[i]) continue;
+		int r = i / 5;
+		int c = i % 5;
+		tmp.x = c;
+		tmp.y = r;
+		v.push_back(tmp);
+		check[i] = 1;
+		if (arr[r][c] == 'Y')
+			dfs(i + 1, lee, lim + 1);
+		else
+			dfs(i + 1, lee + 1, lim);
+		check[i] = 0;
+		v.pop_back();
+	}
+}
 
-총 25명의 여학생들로 이루어진 여학생반은 5x5 정사각형 격자 형태로 자리가 배치되어있음
-얼마 지나지 않아 이다솜과 임도연이라는 두 학생이 두각?을 나타내며
-다른 학생들을 휘어잡기? 시작했다.
-이다솜파와 임도연파의 두 파로 갈라지게 되었으며, 얼마 지나지 않아
-임도연파가 세력을 확장시키며 이다솜파를 위협하기 시작했다.
-
-위기의식을 느낀 이다솜파의 학생들은 현재의 체제를 포기하고
-소문난 칠공주를 결성하기로 함
-1, 7명의 여학생들로 구성
-2. 7명의 자리는 서로 가로, 세로 반드시 인접
-3. 반드시 이다솜파의 학생들로만 구성될 필요는 없음
-4. 7명의 학생 중 이다솜파의 학생이 적어도 4명 이상은 반드시 포함되어 있어야 함
-
-여학생반의 자리 배치도가 주어졌을 때, 소문난 칠공주를 결성할 수 있는
-모든 경우의 수를 구하는 프로그램
-
-S 이다솜파 Y 임도연파 5x5행렬이 공백 없이 첫째줄부터 다섯 줄에 걸쳐 주어짐
-
-
-*/
+int main() {
+	ios::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+	string str;
+	for (int i = 0; i < 5; i++) {
+		cin >> str;
+		for (int j = 0; j < 5; j++) 
+			arr[i][j] = str[j];		
+	}
+	dfs(0, 0, 0);
+	cout << result;
+	system("pause");
+	return 0;
+}
