@@ -12,7 +12,7 @@ int G, R;
 int ans = 0;
 
 pair<int,int> arr[52][52]; // TYPE, TIME
-stack<tuple<int,int,int>> st;
+stack<pair<int,int>> st;
 
 int mx[4] = {1,0,-1,0};
 int my[4] = {0,-1,0,1};
@@ -23,58 +23,39 @@ const int GREEN = 1;
 const int RED = 2;
 const int FLOWER = 3;
 
-void dfs(int t){ // t is time
-	// if(st.empty())
-	// 	return;
+vector<int> maxAns;
+
+void dfs(){
+	if(st.empty())
+		return;
 	
-	// int x, y, z;
-	// tie(y,x,z) = st.top();
-	// st.pop();
+	auto cur = st.top();
+	st.pop();
 	
-	// for(int i = 0; i < 4; i++){
-	// 	int dx = x + mx[i];
-	// 	int dy = y + my[i];
+	for(int i = 0; i < 4; i++){
+		int dx = cur.second + mx[i];
+		int dy = cur.first + my[i];
 		
-	// 	if(dx < 0 || dy < 0 || dy >= N || dx >= M)
-	// 		continue;
+		if(dx < 0 || dy < 0 || dy >= N || dx >= M)
+			continue;
 		
-	// 	if(arr[dy][dx] == -1)
-	// 		continue;
-	// 	else if(arr[dy][dx] == 0){
-	// 		arr[dy][dx] = arr[y][x];
-	// 		st.push({dy,dx,z+1});
-	// 	}else if(arr[dy][dx] != arr[y][x] && z == t){
-	// 		arr[dy][dx] = -1;
-	// 		ans++;
-	// 	}
-	// }
+		if(arr[dy][dx].TYPE == WATER)
+			continue;
+		else if(arr[dy][dx].TYPE == EMPTY){
+			arr[dy][dx].TYPE = arr[cur.first][cur.second].TYPE;
+			arr[dy][dx].TIME = arr[cur.first][cur.second].TIME + 1;
+			st.push({dy,dx});
+		}else if(arr[dy][dx].TYPE + arr[cur.first][cur.second].TYPE == 3 && 
+				 arr[dy][dx].TIME == arr[cur.first][cur.second].TIME+1){
+			arr[dy][dx].TYPE = FLOWER;
+			ans++;
+		}
+	}
 	
-	// dfs(z);
+	dfs();
 }
 
 void func(int k, int g, int r){
-	
-	if(k == G+R){
-		
-		for(int i = 0; i < N; i++){
-			for(int j = 0; j < M; j++){
-				cout << arr[i][j].TYPE << ' ';
-			}
-			cout << '\n';
-		}
-		cout << '\n';
-		// for(int i = 0; i < N; i++){
-		// 	for(int j = 0; j < M; j++){
-		// 		if(arr[i][j] > 0){
-		// 			st.push({i,j,0});
-		// 		}
-		// 	}
-		// }
-		// dfs(0);
-		// cout << ans << '\n';
-		// ans = 0;
-		return;
-	}
 	
 	for(int i = 0; i < N; i++){
 		for(int j = 0; j < M; j++){
@@ -82,15 +63,14 @@ void func(int k, int g, int r){
 			if(board[i][j] == 2){
 				if(arr[i][j].TYPE == GREEN || arr[i][j].TYPE == RED)
 					continue;
-				
 				if(g < G){
 					arr[i][j] = {GREEN,0};
 					func(k+1, g+1, r);
-				}else if(r < R){
+				}
+				if(r < R){
 					arr[i][j] = {RED, 0};
 					func(k+1, g, r+1);
 				}
-				
 				arr[i][j] = {EMPTY,0};
 				
 			}else if(board[i][j] == 0){
@@ -102,8 +82,26 @@ void func(int k, int g, int r){
 		}
 	}
 	
+	if(k == G+R){
+		for(int i = 0; i < N; i++){
+			for(int j = 0; j < M; j++){
+				if(arr[i][j].TYPE > 0){
+					st.push({i,j});
+				}
+			}
+		}
+		dfs();
+		maxAns.push_back(ans);
+		ans = 0;
+	}
+	
 }
+/*
+2 2 1 1
+2 1
+2 0
 
+*/
 
 int main(){
 	
@@ -118,6 +116,8 @@ int main(){
 	}
 	
 	func(0, 0, 0);
+	
+	cout << *max_element(maxAns.begin(), maxAns.end()) << '\n';
 	
 	return 0;
 }
