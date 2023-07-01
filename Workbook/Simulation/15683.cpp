@@ -5,47 +5,129 @@ using namespace std;
 int N, M;
 int Room[10][10];
 
+const int RIGHT = 0;
+const int DOWN = 1;
+const int LEFT = 2;
+const int UP = 3;
+
 int c1[4][2][8] = {
+	// RIGHT 0
 	{
 		{1,1,1,1,1,1,1,1},
 		{0,0,0,0,0,0,0,0}
 	},
+	// DOWN 1
 	{
 		{0,0,0,0,0,0,0,0},
 		{1,1,1,1,1,1,1,1}
 	},
+	// LEFT 2
 	{
 		{-1,-1,-1,-1,-1,-1,-1,-1},
 		{0,0,0,0,0,0,0,0}
 	},
+	// UP 3
 	{
 		{0,0,0,0,0,0,0,0},
 		{-1,-1,-1,-1,-1,-1,-1,-1}
 	}
 };
 
-void solve1(){
+bool isValid(int y, int x){
+	return (x < 0 || x >= M || y < 0 || y >= N);
+}
+bool isWall(int y, int x){
+	return (Room[y][x] == 6);
+}
+bool isCamera(int y, int x){
+	return (Room[y][x] > 0);
+}
+
+void c1Func(int angle, int y, int x){
+	for(int k = 0; k < 8; k++){
+		x += c1[angle][0][k];
+		y += c1[angle][1][k];
+		if(isValid(y, x))
+			continue;
+		if(isWall(y,x))
+			break;
+		if(isCamera(y,x))
+			continue;
+		Room[y][x] = 9;
+	}
+}
+
+bool isused[10][10];
+
+void solve1(int angle){
 	
 	for(int i = 0; i < N; i++){
 		for(int j = 0; j < M; j++){
 			
+			int x = j;
+			int y = i;
+			
 			if(Room[i][j] == 1){
-				int x = j;
-				int y = i;
-				for(int k = 0; k < 8; k++){
-					x += c1[2][0][k];
-					y += c1[2][1][k];
-					cout << y << ' ' << x << '\n';
-					if(x < 0 || x >= M || y < 0 || y >= N)
-						continue;
-					Room[y][x] = 9;
+				c1Func(angle,y,x);
+			}
+			else if(Room[i][j] == 2){
+				if(angle == 0){
+					c1Func(RIGHT,y,x);
+					c1Func(LEFT,y,x);
+				}else if(angle == 1){
+					c1Func(DOWN,y,x);
+					c1Func(UP,y,x);
 				}
+			}else if(Room[i][j] == 3){
+				if(angle == 0){
+					c1Func(UP,y,x);
+					c1Func(RIGHT,y,x);
+				}else if(angle == 1){
+					c1Func(RIGHT,y,x);
+					c1Func(DOWN,y,x);
+				}else if(angle == 2){
+					c1Func(DOWN,y,x);
+					c1Func(LEFT,y,x);
+				}else if(angle == 3){
+					c1Func(LEFT,y,x);
+					c1Func(UP,y,x);
+				}
+			}else if(Room[i][j] == 4){
+				if(angle == 0){
+					c1Func(LEFT,y,x);
+					c1Func(UP,y,x);
+					c1Func(RIGHT,y,x);
+				}else if(angle == 1){
+					c1Func(UP,y,x);
+					c1Func(RIGHT,y,x);
+					c1Func(DOWN,y,x);
+				}else if(angle == 2){
+					c1Func(RIGHT,y,x);
+					c1Func(DOWN,y,x);
+					c1Func(LEFT,y,x);
+				}else if(angle == 3){
+					c1Func(DOWN,y,x);
+					c1Func(LEFT,y,x);
+					c1Func(UP,y,x);
+				}
+			}else if(Room[i][j] == 5){
+				c1Func(LEFT,y,x);
+				c1Func(UP,y,x);
+				c1Func(RIGHT,y,x);
+				c1Func(DOWN,y,x);
 			}
 			
 		}
 	}
 }
+/*
+4 6
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 5 0 6 0
+0 0 0 0 0 0
 
+*/
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
@@ -58,7 +140,7 @@ int main(){
 		}
 	}
 	
-	solve1();
+	solve1(0);
 	
 	cout << '\n';
 	for(int i = 0; i < N; i++){
