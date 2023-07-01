@@ -40,10 +40,10 @@ bool isWall(int y, int x){
 	return (Room[y][x] == 6);
 }
 bool isCamera(int y, int x){
-	return (Room[y][x] > 0);
+	return (Room[y][x] > 0 && Room[y][x] <= 5);
 }
 
-void c1Func(int angle, int y, int x){
+void setCamera(int angle, int y, int x, int n){
 	for(int k = 0; k < 8; k++){
 		x += c1[angle][0][k];
 		y += c1[angle][1][k];
@@ -53,72 +53,138 @@ void c1Func(int angle, int y, int x){
 			break;
 		if(isCamera(y,x))
 			continue;
-		Room[y][x] = 9;
+		Room[y][x] = n;
 	}
 }
 
-bool isused[10][10];
+void c1Func(int angle, int y, int x, int n){
+	if (angle == 0) {
+		setCamera(RIGHT, y, x, n);
+	} else if (angle == 1) {
+		setCamera(DOWN, y, x, n);
+	} else if (angle == 2) {
+		setCamera(LEFT, y, x, n);
+	} else if (angle == 3) {
+		setCamera(UP, y, x, n);
+	}
+}
 
-void solve1(int angle){
+void c2Func(int angle, int y, int x, int n){
+	if(angle == 0){
+		setCamera(RIGHT,y,x, n);
+		setCamera(LEFT,y,x, n);
+	}else if(angle == 1){
+		setCamera(DOWN,y,x, n);
+		setCamera(UP,y,x, n);
+	}
+}
+
+void c3Func(int angle, int y, int x, int n){
+	if (angle == 0) {
+		setCamera(UP, y, x, n);
+		setCamera(RIGHT, y, x, n);
+	} else if (angle == 1) {
+		setCamera(RIGHT, y, x, n);
+		setCamera(DOWN, y, x, n);
+	} else if (angle == 2) {
+		setCamera(DOWN, y, x, n);
+		setCamera(LEFT, y, x, n);
+	} else if (angle == 3) {
+		setCamera(LEFT, y, x, n);
+		setCamera(UP, y, x, n);
+	}
+}
+
+void c4Func(int angle, int y, int x, int n){
+	if (angle == 0) {
+		setCamera(LEFT, y, x, n);
+		setCamera(UP, y, x, n);
+		setCamera(RIGHT, y, x, n);
+	} else if (angle == 1) {
+		setCamera(UP, y, x, n);
+		setCamera(RIGHT, y, x, n);
+		setCamera(DOWN, y, x, n);
+	} else if (angle == 2) {
+		setCamera(RIGHT, y, x, n);
+		setCamera(DOWN, y, x, n);
+		setCamera(LEFT, y, x, n);
+	} else if (angle == 3) {
+		setCamera(DOWN, y, x, n);
+		setCamera(LEFT, y, x, n);
+		setCamera(UP, y, x, n);
+	}
+}
+
+void c5Func(int angle, int y, int x, int n){
+	setCamera(LEFT,y,x, n);
+	setCamera(UP,y,x, n);
+	setCamera(RIGHT,y,x, n);
+	setCamera(DOWN,y,x, n);
+}
+
+bool isused[10][10];
+int ans = 999;
+
+void solve1(int Y, int X){
 	
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < M; j++){
+	for(int i = Y; i < N; i++){
+		for(int j = X; j < M; j++){
 			
-			int x = j;
-			int y = i;
+			if(isused[i][j])
+				continue;
 			
 			if(Room[i][j] == 1){
-				c1Func(angle,y,x);
-			}
-			else if(Room[i][j] == 2){
-				if(angle == 0){
-					c1Func(RIGHT,y,x);
-					c1Func(LEFT,y,x);
-				}else if(angle == 1){
-					c1Func(DOWN,y,x);
-					c1Func(UP,y,x);
+				for(int a = 0; a < 4; a++){
+					isused[i][j] = true;
+					c1Func(a,i,j,9);
+					solve1(i,j);
+					c1Func(a,i,j,0);
+					isused[i][j] = false;
+				}
+			}else if(Room[i][j] == 2){
+				isused[i][j] = true;
+				for(int a = 0; a < 2; a++){
+					c2Func(a,i,j,9);
+					solve1(i,j);
+					c2Func(a,i,j,0);
 				}
 			}else if(Room[i][j] == 3){
-				if(angle == 0){
-					c1Func(UP,y,x);
-					c1Func(RIGHT,y,x);
-				}else if(angle == 1){
-					c1Func(RIGHT,y,x);
-					c1Func(DOWN,y,x);
-				}else if(angle == 2){
-					c1Func(DOWN,y,x);
-					c1Func(LEFT,y,x);
-				}else if(angle == 3){
-					c1Func(LEFT,y,x);
-					c1Func(UP,y,x);
+				isused[i][j] = true;
+				for(int a = 0; a < 4; a++){
+					c3Func(a,i,j,9);
+					solve1(i,j);
+					c3Func(a,i,j,0);
 				}
 			}else if(Room[i][j] == 4){
-				if(angle == 0){
-					c1Func(LEFT,y,x);
-					c1Func(UP,y,x);
-					c1Func(RIGHT,y,x);
-				}else if(angle == 1){
-					c1Func(UP,y,x);
-					c1Func(RIGHT,y,x);
-					c1Func(DOWN,y,x);
-				}else if(angle == 2){
-					c1Func(RIGHT,y,x);
-					c1Func(DOWN,y,x);
-					c1Func(LEFT,y,x);
-				}else if(angle == 3){
-					c1Func(DOWN,y,x);
-					c1Func(LEFT,y,x);
-					c1Func(UP,y,x);
+				isused[i][j] = true;
+				for(int a = 0; a < 4; a++){
+					c4Func(a,i,j,9);
+					solve1(i,j);
+					c4Func(a,i,j,0);
 				}
 			}else if(Room[i][j] == 5){
-				c1Func(LEFT,y,x);
-				c1Func(UP,y,x);
-				c1Func(RIGHT,y,x);
-				c1Func(DOWN,y,x);
+				isused[i][j] = true;
+				c5Func(0,i,j,9);
+				solve1(i,j);
 			}
 			
 		}
 	}
+	
+	int tmp = 0;
+	//cout << '\n';
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < M; j++){
+		//	cout << Room[i][j] << ' ';
+			if(Room[i][j] == 0)
+				tmp++;
+		}
+		//cout << '\n';
+	}
+	//cout << '\n';
+	
+	ans = min(tmp,ans);
+	
 }
 /*
 4 6
@@ -140,15 +206,9 @@ int main(){
 		}
 	}
 	
-	solve1(0);
+	solve1(0,0);
 	
-	cout << '\n';
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < M; j++){
-			cout << Room[i][j] << ' ';
-		}
-		cout << '\n';
-	}
+	cout << ans << '\n';
 	
 	return 0;
 }
