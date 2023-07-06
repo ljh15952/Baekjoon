@@ -123,8 +123,6 @@ void c5Func(int angle, int y, int x, int arr[][10]){
 	setCamera(DOWN,y,x, arr);
 }
 
-
-
 void solve2(int st, int arr[][10]){
 	
 	if(st == v.size()){
