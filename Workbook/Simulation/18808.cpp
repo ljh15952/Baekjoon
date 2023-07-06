@@ -19,6 +19,39 @@ class Sticker{
 
 vector<Sticker*> vec;
 
+void swap(int &x, int &y){
+	int tmp = x;
+	x = y;
+	y = tmp;
+}
+
+void Rotate(){
+	
+	int r = vec[1]->row;
+	int c = vec[1]->col;
+	
+	int tempArr[15][15] = {0,};
+	
+	for(int i = 0; i < r; i++){
+		for(int j = 0; j < c; j++){
+			tempArr[j][r - i - 1] = vec[1]->val[i][j];
+		}
+	}
+	
+	cout << vec[1]->row << ' ' << vec[1]->col << '\n';
+	swap(vec[1]->row, vec[1]->col);
+	cout << vec[1]->row << ' ' << vec[1]->col << '\n';
+	
+	cout << '\n';
+	for(int i = 0; i < vec[1]->row; i++){
+		for(int j = 0; j < vec[1]->col; j++){
+			cout << tempArr[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+	cout << '\n';
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
@@ -37,17 +70,27 @@ int main(){
 	}
 	
 	cout << '\n';
-	
-	for(auto it : vec){
-		for(int r = 0; r < it->row; r++){
-			for(int c = 0; c < it->col; c++){
-				cout << it->val[r][c] << ' ';
-			}
-			cout << '\n';
+	for(int i = 0; i < vec[1]->row; i++){
+		for(int j = 0; j < vec[1]->col; j++){
+			cout << vec[1]->val[i][j] << ' ';
 		}
 		cout << '\n';
 	}
-		
+	cout << '\n';
+	
+	Rotate();
+	
+	
+	
+	/*
+	1. 입력 받기
+	2. 각 스티커 90도 회전하기(row,col 바뀜)
+	3. 차례대로 노트북 배열에 배치하기
+	4. 회전해서 노트북에 배치하기
+	5. 
+	
+	*/
+	
 	return 0;
 }
 
