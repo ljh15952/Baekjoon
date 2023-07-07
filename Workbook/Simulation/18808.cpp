@@ -6,6 +6,8 @@ int N, M;
 int K; // 스티커의 개수
 int R, C; // 행 열
 
+int arr[45][45];
+
 class Sticker{
 	public:
 		Sticker(int r,int c){
@@ -25,31 +27,53 @@ void swap(int &x, int &y){
 	y = tmp;
 }
 
-void Rotate(){
+void Rotate(int k){
 	
-	int r = vec[1]->row;
-	int c = vec[1]->col;
+	int r = vec[k]->row;
+	int c = vec[k]->col;
 	
 	int tempArr[15][15] = {0,};
 	
 	for(int i = 0; i < r; i++){
 		for(int j = 0; j < c; j++){
-			tempArr[j][r - i - 1] = vec[1]->val[i][j];
+			tempArr[j][r - i - 1] = vec[k]->val[i][j];
 		}
 	}
 	
-	cout << vec[1]->row << ' ' << vec[1]->col << '\n';
-	swap(vec[1]->row, vec[1]->col);
-	cout << vec[1]->row << ' ' << vec[1]->col << '\n';
+	swap(vec[k]->row, vec[k]->col);
 	
-	cout << '\n';
-	for(int i = 0; i < vec[1]->row; i++){
-		for(int j = 0; j < vec[1]->col; j++){
-			cout << tempArr[i][j] << ' ';
+	for(int i = 0; i < vec[k]->row; i++){
+		for(int j = 0; j < vec[k]->col; j++){
+			vec[k]->val[i][j] = tempArr[i][j];
 		}
-		cout << '\n';
 	}
-	cout << '\n';
+}
+
+bool setSticker(int y, int x, int k){
+	
+	for(int i = 0; i < vec[k]->row; i++){
+		for(int j = 0; j < vec[k]->col; j++){
+			if(y + i >= N || x + j >= M){
+				return false;
+			}
+			if(vec[k]->val[i][j] == 1 && arr[y + i][x + j] == 1){
+				// 놓을 수 없음 돌려야 함
+				return false;
+			}
+		}
+	}
+	
+	// 놓을 수 있음!
+	for(int i = 0; i < vec[k]->row; i++){
+		for(int j = 0; j < vec[k]->col; j++){
+			if(vec[k]->val[i][j] == 0){
+				continue;
+			}
+			arr[y+i][x+j] = vec[k]->val[i][j];
+		}
+	}
+	
+	return true;
 }
 
 int main(){
@@ -69,18 +93,50 @@ int main(){
 		}
 	}
 	
-	cout << '\n';
-	for(int i = 0; i < vec[1]->row; i++){
-		for(int j = 0; j < vec[1]->col; j++){
-			cout << vec[1]->val[i][j] << ' ';
+	for(int i = 0; i < K; i++){
+		for(int j = 0; j < 4; j++){
+			
+			bool flag = false;
+			for(int y = 0; y < N; y++){
+				for(int x = 0; x < M; x++){
+					
+					flag = setSticker(y, x, i);
+					
+					if(flag){
+						break;
+					}
+				}
+				if(flag){
+					break;
+				}
+			}
+			
+			if(flag){
+				break;
+			}else{
+				Rotate(i);
+			}
 		}
-		cout << '\n';
+		
+		// cout << i << '\n';
+		// for(int i = 0; i < N; i++){
+		// 	for(int j = 0; j < M; j++){
+		// 		cout << arr[i][j] << ' ';
+		// 	}
+		// 	cout << '\n';
+		// }
+		// cout << '\n';
 	}
-	cout << '\n';
 	
-	Rotate();
+	int ans = 0;
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < M; j++){
+			if(arr[i][j] == 1) 
+				ans++;
+		}
+	}
 	
-	
+	cout << ans << '\n';
 	
 	/*
 	1. 입력 받기
