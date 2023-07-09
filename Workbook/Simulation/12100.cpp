@@ -5,6 +5,14 @@ using namespace std;
 int N;
 int board[25][25];
 
+const int LEFT = 0;
+const int UP = 1;
+const int RIGHT = 2;
+const int DOWN = 3;
+
+int mx[4] = {-1,0,1,0};
+int my[4] = {0,-1,0,1};
+
 void printBoard(){
 	cout << '\n';
 	for(int i = 0; i < N; i++){
@@ -15,6 +23,73 @@ void printBoard(){
 	}
 	cout << '\n';
 }
+
+bool OOB(int y, int x){
+	return (y < 0 || x < 0 || y >= N || x >= N);
+}
+
+void go(int y, int x, int dir){
+	
+	int dx = x;
+	int dy = y;
+	while(1){
+		dx += mx[dir];
+		dy += my[dir];
+		
+		if(OOB(dy, dx)){
+			break;
+		}
+		
+		if(board[dy][dx] == 0){
+			swap(board[dy][dx], board[y][x]);
+			x = dx;
+			y = dy;
+		}else if(board[dy][dx] == board[y][x]){
+			board[dy][dx] *= 2;
+			board[y][x] = 0;
+			break;
+		}else if(board[dy][dx] != board[y][x]){
+			break;
+		}
+		
+		//printBoard();
+		
+	}
+	
+}
+
+void mergeBloack(int dir){
+	
+	if(dir == LEFT || dir == UP){
+		for(int i = 0; i < N; i++){
+			for(int j = 0; j < N; j++){
+				if(board[i][j] != 0){
+					go(i, j, dir);
+				}
+			}
+		}
+	}else if(dir == RIGHT || dir == DOWN){
+		for(int i = N - 1; i >= 0; i--){
+			for(int j = N - 1; j >= 0; j--){
+				if(board[i][j] != 0){
+					go(i, j, dir);
+				}
+			}
+		}
+	}
+		
+	
+		
+	
+	
+}
+
+/*
+3
+0 2 4
+2 4 0
+0 0 8
+*/
 
 int main(){
 	
@@ -28,10 +103,24 @@ int main(){
 		}
 	}
 	
+	mergeBloack(DOWN);
+	
 	printBoard();
 	
 	return 0;
 }
+
+/*
+
+1. 블록 합쳐지는 알고리즘
+2. 모든 방향 백트래킹
+ <- <- <- <- <-
+    ^ <- <- <- 
+	  ^ <- <-
+	  ....
+
+
+*/
 
 /*
 2048
