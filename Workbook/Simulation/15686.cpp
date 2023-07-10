@@ -2,11 +2,35 @@
 
 using namespace std;
 
+int N, M;
+int board[55][55];
+
+void printBoard(){
+	
+	cout << '\n';
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++){
+			cout << board[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+	cout << '\n';
+	
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE" << '\n';
+	cin >> N >> M;
+	
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++){
+			cin >> board[i][j];
+		}
+	}
+	
+	printBoard();
 	
 	return 0;
 }
