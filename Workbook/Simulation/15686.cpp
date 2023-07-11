@@ -18,6 +18,65 @@ void printBoard(){
 	
 }
 
+/*
+
+5 3
+0 0 1 0 2
+0 0 0 0 1
+0 1 0 0 0
+0 0 1 0 0
+0 0 0 0 2
+
+*/
+
+#define Y first
+#define X second
+
+queue<pair<int,int>> Q;
+
+int mx[4] = {1,0,-1,0};
+int my[4] = {0,1,0,-1};
+int dis[55][55];
+
+int getDistance(){
+	
+	board[0][0] = 1;
+	Q.push({0,0});
+	
+	dis[0][0] = 0;
+	
+	while(!Q.empty()){
+		
+		auto cur = Q.front(); Q.pop();
+		
+		for(int i = 0; i < 4; i++){
+			int dx = cur.X + mx[i];
+			int dy = cur.Y + my[i];
+			
+			if(dx < 0 || dy < 0 || dx >= N || dy >= N)
+				continue;
+			if(board[dy][dx] == 1)
+				continue;
+			
+			if(board[dy][dx] == 2){
+				// 도착
+				dis[dy][dx] = dis[cur.Y][cur.X] + 1;
+				return 1;
+			}
+			
+			dis[dy][dx] = dis[cur.Y][cur.X] + 1;
+			board[dy][dx] = 1;
+			Q.push({dy,dx});
+			
+		}
+		
+		
+	}
+	
+	return 0;
+	
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
@@ -30,7 +89,15 @@ int main(){
 		}
 	}
 	
-	printBoard();
+	cout << getDistance() << '\n';
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++){
+			cout << dis[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+	cout << '\n';
+	//printBoard();
 	
 	return 0;
 }
