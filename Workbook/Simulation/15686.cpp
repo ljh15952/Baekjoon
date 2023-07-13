@@ -1,9 +1,15 @@
 #include <bits/stdc++.h>
 
+// #define Y first
+// #define X second
+
 using namespace std;
 
 int N, M;
 int board[55][55];
+
+vector<pair<int,int>> houses;
+vector<pair<int,int>> chickens;
 
 void printBoard(){
 	
@@ -18,64 +24,21 @@ void printBoard(){
 	
 }
 
-/*
+int getDistance(int x1, int y1, int x2, int y2){
+	return abs(x1 - x2) + abs(y1 - y2);
+}
 
+int getDistance(pair<int,int> h, vector<int,int> c){
+	return abs(h.X - c.X) + abs(h.Y - c.Y);
+}
+/*
 5 3
-0 0 1 0 2
+1 0 1 0 0
 0 0 0 0 1
-0 1 0 0 0
+0 1 2 0 0
 0 0 1 0 0
 0 0 0 0 2
-
 */
-
-#define Y first
-#define X second
-
-queue<pair<int,int>> Q;
-
-int mx[4] = {1,0,-1,0};
-int my[4] = {0,1,0,-1};
-int dis[55][55];
-
-int getDistance(){
-	
-	board[0][0] = 1;
-	Q.push({0,0});
-	
-	dis[0][0] = 0;
-	
-	while(!Q.empty()){
-		
-		auto cur = Q.front(); Q.pop();
-		
-		for(int i = 0; i < 4; i++){
-			int dx = cur.X + mx[i];
-			int dy = cur.Y + my[i];
-			
-			if(dx < 0 || dy < 0 || dx >= N || dy >= N)
-				continue;
-			if(board[dy][dx] == 1)
-				continue;
-			
-			if(board[dy][dx] == 2){
-				// 도착
-				dis[dy][dx] = dis[cur.Y][cur.X] + 1;
-				return 1;
-			}
-			
-			dis[dy][dx] = dis[cur.Y][cur.X] + 1;
-			board[dy][dx] = 1;
-			Q.push({dy,dx});
-			
-		}
-		
-		
-	}
-	
-	return 0;
-	
-}
 
 int main(){
 	
@@ -86,17 +49,23 @@ int main(){
 	for(int i = 0; i < N; i++){
 		for(int j = 0; j < N; j++){
 			cin >> board[i][j];
+			
+			if(board[i][j] == 1){
+				// 집
+				houses.push_back({i, j});
+			}else if(board[i][j] == 2){
+				// 치킨집
+				chickens.push_back({i, j});
+			}
+			
 		}
 	}
 	
-	cout << getDistance() << '\n';
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < N; j++){
-			cout << dis[i][j] << ' ';
-		}
-		cout << '\n';
-	}
-	cout << '\n';
+	auto h = houses[0];
+	auto c = chickens[0];
+	cout << h.first << '\n';
+	//cout << getDistance(h, c) << '\n';
+
 	//printBoard();
 	
 	return 0;
@@ -105,7 +74,7 @@ int main(){
 /*
 M개 만큼 for문을 돈다면?
 M개 치킨집 경우의 수 몇가지 나올라나 
-하고 bfs 최소거리 구하는게 뭐더라
+하고 bfs 최소거리 구하는게 뭐더라 생각해보니깐 필요 없음
 
 */
 
