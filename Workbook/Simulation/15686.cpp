@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
-// #define Y first
-// #define X second
+#define Y first
+#define X second
 
 using namespace std;
 
@@ -24,13 +24,15 @@ void printBoard(){
 	
 }
 
-int getDistance(int x1, int y1, int x2, int y2){
-	return abs(x1 - x2) + abs(y1 - y2);
-}
+// int getDistance(int x1, int y1, int x2, int y2){
+// 	return abs(x1 - x2) + abs(y1 - y2);
+// }
 
-int getDistance(pair<int,int> h, vector<int,int> c){
+template <typename T>
+int getDistance(T h, T c){
 	return abs(h.X - c.X) + abs(h.Y - c.Y);
 }
+
 /*
 5 3
 1 0 1 0 0
@@ -63,8 +65,7 @@ int main(){
 	
 	auto h = houses[0];
 	auto c = chickens[0];
-	cout << h.first << '\n';
-	//cout << getDistance(h, c) << '\n';
+	cout << getDistance(h, c) << '\n';
 
 	//printBoard();
 	
