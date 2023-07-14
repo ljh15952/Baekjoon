@@ -10,40 +10,35 @@ int board[55][55];
 
 vector<pair<int,int>> houses;
 vector<pair<int,int>> chickens;
+vector<pair<int,int>> selectChicken;
 
-void printBoard(){
-	
-	cout << '\n';
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < N; j++){
-			cout << board[i][j] << ' ';
-		}
-		cout << '\n';
-	}
-	cout << '\n';
-	
-}
+int ans = 9999;
 
 template <typename T>
 int getDistance(T h, T c){
 	return abs(h.X - c.X) + abs(h.Y - c.Y);
 }
 
-/*
-5 2
-2 0 1 0 0
-2 0 1 0 1
-2 1 1 0 0
-0 0 1 0 0
-0 0 0 0 1
-*/
 
-vector<pair<int,int>> selectChicken;
+int getChickenRoad(){
+	
+	int tot = 0;
+	
+	for(int i = 0; i < houses.size(); i++){
+		
+		int num = 9999;
+		for(auto it : selectChicken){
+			num = min(num, getDistance(it, houses[i]));
+		}
+		tot += num;
+	}
+	return tot;
+}
 
 void backTracking(int st){
 	
 	if(selectChicken.size() >= M){
-		
+		ans = min(ans, getChickenRoad());
 		return;
 	}
 	
@@ -66,23 +61,17 @@ int main(){
 			cin >> board[i][j];
 			
 			if(board[i][j] == 1){
-				// 집
 				houses.push_back({i, j});
 			}else if(board[i][j] == 2){
-				// 치킨집
 				chickens.push_back({i, j});
 			}
 			
 		}
 	}
 	
-	auto h = houses[0];
-	auto c = chickens[0];
-	//cout << getDistance(h, c) << '\n';
-
-	//printBoard();
-	
 	backTracking(0);
+	
+	cout << ans << '\n';
 	
 	return 0;
 }
