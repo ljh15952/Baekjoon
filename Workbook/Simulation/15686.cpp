@@ -19,7 +19,6 @@ int getDistance(T h, T c){
 	return abs(h.X - c.X) + abs(h.Y - c.Y);
 }
 
-
 int getChickenRoad(){
 	
 	int tot = 0;
