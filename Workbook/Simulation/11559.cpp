@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#define Y first
+#define X second
 
 using namespace std;
 
@@ -6,6 +8,103 @@ const int ROW = 12;
 const int COL = 6;
 
 char board[ROW][COL];
+
+char tempBoard[ROW][COL];
+
+bool isvisited[ROW][COL];
+
+int mx[4] = {0,1,0,-1};
+int my[4] = {1,0,-1,0};
+
+queue<pair<int,int>> Q;
+
+bool isChain = false;
+
+
+void bfs(int y, int x){
+	
+	int ct = 0;
+	
+	Q.push({y,x});
+	isvisited[y][x] = true;
+	
+	vector<pair<int,int>> vec;
+	
+	while(!Q.empty()){
+		
+		auto cur = Q.front(); Q.pop();
+		vec.push_back({cur.Y, cur.X});
+		
+		for(int i = 0; i < 4; i++){
+			int dx = mx[i] + cur.X;
+			int dy = my[i] + cur.Y;
+			
+			if(dx < 0 || dy < 0 || dx >= COL || dy >= ROW)
+				continue;
+			if(board[cur.Y][cur.X] != board[dy][dx])
+				continue;
+			if(isvisited[dy][dx])
+				continue;
+			
+			Q.push({dy,dx});
+			isvisited[dy][dx] = true;
+			ct++;
+		}
+		
+	}
+	
+	if(ct >= 3){
+		// 연쇄 성공
+		isChain = true;
+		
+		for(auto it : vec){
+			tempBoard[it.Y][it.X] = '.';
+		}
+		
+		for(int i = ROW-1; i >= 0; i--){
+			for(int j = COL-1; j >= 0; j--){
+				if(tempBoard[i][j] != '.'){
+					int dy = i;
+					int dx = j;
+					while(1){
+						if(dy == ROW-1)
+							break;
+						if(tempBoard[dy+1][dx] != '.')
+							break;
+
+						swap(tempBoard[dy][dx], tempBoard[dy+1][dx]);
+						dy = dy+1;
+					}
+				}
+			}
+		}
+		
+		
+	}
+	
+}
+
+bool checkPuyo(){
+	
+	for(int i = 0; i < ROW; i++){
+		for(int j = 0; j < COL; j++){
+			tempBoard[i][j] = board[i][j];
+			isvisited[i][j] = false;
+		}
+	}
+	
+	for(int i = 0; i < ROW; i++){
+		for(int j = 0; j < COL; j++){
+			if(board[i][j] != '.'){
+				if(!isvisited[i][j]){
+					bfs(i,j);
+				}
+			}
+		}
+	}
+	
+	return isChain;
+}
 
 int main(){
 	
@@ -15,17 +114,36 @@ int main(){
 		}
 	}
 	
-	cout << '\n';
+	int ans = 0;
 	
-	for(int i = 0; i < ROW; i++){
-		for(int j = 0; j < COL; j++){
-			cout << board[i][j] << ' ';
-		}
-		cout << '\n';
+	while(checkPuyo()){
+		
+		for(int i = 0; i < ROW; i++){
+			for(int j = 0; j < COL; j++){
+				board[i][j] = tempBoard[i][j];
+			}
+		}	
+		ans++;
+		isChain = false;
 	}
+	
+	cout << ans << '\n';
+	
+	
 	
 	return 0;
 }
+
+/*
+푸는 법
+1. 뿌요만 일단 저장 <- 이건 좀 아닐듯 내려오는 뿌요 좌표가 바뀌니깐
+2. 뿌요 재귀 돌면서 4개 이상 연결되어 있으면 저장해놨다가 삭제(모든 뿌요)
+3. 내리기
+4. 터지는게 없을 때 까지 반복
+5. 몇번 반복 했는지 출력
+
+
+*/
 
 /*
 뿌요뿌요 문제
