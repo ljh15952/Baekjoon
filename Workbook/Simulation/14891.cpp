@@ -2,11 +2,33 @@
 
 using namespace std;
 
+string wheel[4];
+int K;
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE" << '\n';
+	for(int i = 0; i < 4; i++){
+		cin >> wheel[i];
+	}	
+	
+	cin >> K;
+	
+	for(int i = 0; i < K; i++){
+		int w, r; // wheel num, rotate (1 ->) (-1 <-)
+		cin >> w >> r;
+		
+		/*
+		돌리는 코드
+		string 빙글 빙글 도는 코드도 짜야할 듯
+		*/
+	}
+	
+	
+	for(int i = 0; i < 4; i++){
+		cout << wheel[i] << '\n';
+	}
 	
 	return 0;
 }
