@@ -2,16 +2,16 @@
 
 using namespace std;
 
-vector<char> wheel[5]; // 1 2 3 4 번 톱니바퀴 사용
+list<char> wheel[5]; // 1 2 3 4 번 톱니바퀴 사용
 int K;
 
 void rotate(int i, int r){
 	
 	if(r == 1){
 		wheel[i].push_back(wheel[i].front());
-		wheel[i].erase(wheel[i].begin());
+		wheel[i].pop_front();
 	}else if(r == -1){
-		wheel[i].insert(wheel[i].begin(), wheel[i].back());
+		wheel[i].push_front(wheel[i].back());
 		wheel[i].pop_back();
 	}
 	
