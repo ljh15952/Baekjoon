@@ -105,6 +105,4 @@ int main(){
 
 TOP을 기준으로
 LEFT RIGHT DOWN UP 연결리스트 비슷하겜 만들자! 내일!
-
-어디까지 풀었떠라 
 */
