@@ -16,10 +16,51 @@ int dice[7];
 int idx[5][4] = {
 	{}, // dummy
 	{2,6,4,5}, // 동쪽 5->2, 2->6, 6->4, 4->5
-	{2,5,4,6},
-	{3,2,1,4},
-	{2,3,1,4},
+	{2,5,4,6}, // 서쪽 6->2, 2->5, 5->4, 4->6
+	{3,2,1,4}, // 북쪽 3->2, 2->1, 1->4, 4->3
+	{2,3,4,1}, // 남쪽 1->2, 2->3, 3->4, 4->1
 };
+
+bool isOk(int nx, int ny){
+	if(nx < 0 || nx>=N || ny < 0 || ny >= M)
+		return false;
+	return true;
+}
+
+void roll(int com){
+	int tmp[7];
+	for(int i = 1; i <= 6; ++i)
+		tmp[i] = dice[i];
+	
+	for(int i = 0; i < 4; i++)
+		tmp[idx[com][i]] = dice[idx[com][(i+1)%4]];
+	
+	for(int i = 1; i <= 6; ++i)
+		dice[i] = tmp[i];
+}
+
+void score(int c){
+	
+	int nx=x, ny=y;
+	
+	if(c==1) ++ny;
+	else if(c==2) --ny;
+	else if(c==3) --nx;
+	else ++nx;
+	
+	if(isOk(nx, ny)){
+		x=nx; y=ny;
+		roll(c);
+		
+		if(board[nx][ny] == 0)
+			board[nx][ny] = dice[4];
+		else{
+			dice[4] = board[nx][ny];
+			board[nx][ny] = 0;
+		}
+		cout << dice[2] << '\n';
+	}
+}
 
 int main(){
 	
@@ -33,23 +74,10 @@ int main(){
 		}
 	}
 	
-	for(int i = 0; i < K; i++){
-		cin >> cmd[i];
+	while(K--){
+		cin >> command;
+		score(command);
 	}
-	
-	cout << '\n';
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < M; j++){
-			cout << board[i][j] << ' ';
-		}
-		cout << '\n';
-	}
-	cout << '\n';
-
-	for(int i = 0; i < K; i++){
-		cout << cmd[i] << ' ';
-	}
-	
 	
 	return 0;
 }
