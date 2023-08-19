@@ -3,7 +3,31 @@
 using namespace std;
 
 int n, w, L; // 트럭 수, 다리의 길이, 다리의 최대하중
-int trucks[1005];
+int Map[105];
+
+class Truck{
+	public:
+		Truck(int w_, int x_) : weight(w_), x(x_) {}
+	
+		int weight;
+		int x;
+		
+		void go(){
+			if(!Map[-(x+1)])
+				x++;
+			Map[-(x-1)] = 0;
+			Map[-(x)] = 1;
+		}
+};
+
+vector<Truck*> vec;
+
+void printTruckPos(){
+	for(auto it : vec){
+		cout << it->x << ' ';
+	}
+	cout << '\n';
+}
 
 int main(){
 	
@@ -12,27 +36,47 @@ int main(){
 	cin >> n >> w >> L;
 	
 	for(int i = 0; i < n; i++){
-		cin >> trucks[i];
+		int t;
+		cin >> t;
+		Map[i] = 1;
+		vec.push_back(new Truck(t, -i));
 	}
+	
+	int now_L = 0; // 현재 하중 
+	int ans = 0; // 시간
+	
+	printTruckPos();
+	for(auto it : vec){
+		it->go();
+	}
+	printTruckPos();
+
+	for(auto it : vec){
+		it->go();
+	}
+	printTruckPos();
+
+	for(auto it : vec){
+		it->go();
+	}
+	printTruckPos();
+	
+	// while(!vec.empty()){
+		
+		
+		
+	// 	ans++;
+	// }
+	
+	// cout << ans << '\n';
 	
 	return 0;
 }
 
 /*
-트럭
+w = 2
 
-강을 가로지르는 하나의 차선으로 된 다리가 하나 있다.
-이 다리를 n개의 트럭이 건너가려고 한다.
-트럭의 순서는 바꿀 수 없으며, 트럭의 무게는 서로 같지 않을 수 있다.
-다리 위에는 단지 w대의 트럭만 동시에 올라갈 수 있다.
-다리의 길이는 w(단위길이)이며, 각 트럭들은 하나의 단위시간에 하나의 단위길이만큼만
-이동할 수 있다고 가정한다. 동시에 다리 위에 올라가 있는 트럭들의 무게의 합은
-다리의 최대하중인 L보다 작거나 같아야 한다. 참고로 다리 위에 완전히 올라가지 못한 트럭의
-모게는 다리 위의 트럭들의 무게의 합을 계산할 때 포합하지 않는다고 가정한다.
+          -0 -1 -2 -3 -4
+- - (- -)  -  -  -  -  -
 
-다리의 길이 w는 2 
-다리의 최대하중 L은 10
-다리를 건너려는 트럭의 무게가 [7,4,5,6]인 순서대로
-다리를 오른쪽에서 왼쪽으로 건넌다고 하자.
-이 경우 모든 트럭이 다리를 건너는 최단시간은 아래의 그림에서 보는 것과 같이 8이다.
 */
