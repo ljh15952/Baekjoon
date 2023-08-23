@@ -3,30 +3,28 @@
 using namespace std;
 
 int n, w, L; // 트럭 수, 다리의 길이, 다리의 최대하중
-int Map[105];
+int ans;
+int bridge[105];
+queue<int> truck;
 
-class Truck{
-	public:
-		Truck(int w_, int x_) : weight(w_), x(x_) {}
-	
-		int weight;
-		int x;
-		
-		void go(){
-			if(!Map[-(x+1)])
-				x++;
-			Map[-(x-1)] = 0;
-			Map[-(x)] = 1;
-		}
-};
 
-vector<Truck*> vec;
+bool isEmpty(){
+	for(int i = 0; i < w; i++)
+		if(bridge[i]) return false;
+	return true;
+}
 
-void printTruckPos(){
-	for(auto it : vec){
-		cout << it->x << ' ';
-	}
-	cout << '\n';
+void go(){
+	for(int i = w-1; i > 0; i--)
+		bridge[i] = bridge[i - 1];
+	bridge[0] = 0;
+}
+
+int calculate(){
+	int sum = 0;
+	for(int i = 0; i < w; i++)
+		sum += bridge[i];
+	return sum;
 }
 
 int main(){
@@ -38,37 +36,24 @@ int main(){
 	for(int i = 0; i < n; i++){
 		int t;
 		cin >> t;
-		Map[i] = 1;
-		vec.push_back(new Truck(t, -i));
+		truck.push(t);
 	}
 	
-	int now_L = 0; // 현재 하중 
-	int ans = 0; // 시간
-	
-	printTruckPos();
-	for(auto it : vec){
-		it->go();
-	}
-	printTruckPos();
+	do{
+		int tmp = calculate();
+		if(tmp <= L){
+			tmp -= bridge[w-1];
+			go();
+			
+			if(!truck.empty() && (tmp+truck.front() <= L)){
+				bridge[0] = truck.front();
+				truck.pop();
+			}
+		}
+		ans++;
+	}while(!isEmpty());
 
-	for(auto it : vec){
-		it->go();
-	}
-	printTruckPos();
-
-	for(auto it : vec){
-		it->go();
-	}
-	printTruckPos();
-	
-	// while(!vec.empty()){
-		
-		
-		
-	// 	ans++;
-	// }
-	
-	// cout << ans << '\n';
+	cout << ans << '\n';
 	
 	return 0;
 }
