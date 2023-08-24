@@ -2,14 +2,69 @@
 
 using namespace std;
 
+int cube[5][5][5];
+
+int num[5];
+bool isUsed[5];
+int ct = 0;
+
+void func(int k){
+	
+	if(k == 5){
+		cout << ct++ << '\n';
+		for(int i = 0; i < 5; i++)
+			cout << num[i];
+		cout << '\n';
+		return;
+	}
+	
+	for(int i = 0; i < 5; i++){
+		
+		if(isUsed[i])
+			continue;
+		
+		num[k] = i;
+		isUsed[i] = true;
+		func(k+1);
+		isUsed[i] = false;
+	}
+	
+	
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QEW" << '\n';
+	// for(int z = 0; z < 5; z++){
+	// 	for(int y = 0; y < 5; y++){
+	// 		for(int x = 0; x < 5; x++){
+	// 			cin >> cube[z][y][x];
+	// 		}
+	// 	}
+	// }
+	
+	func(0);
+	
+	// cout << '\n';
+	// for(int z = 0; z < 5; z++){
+	// 	for(int y = 0; y < 5; y++){
+	// 		for(int x = 0; x < 5; x++){
+	// 			cout << cube[z][y][x] << ' ';
+	// 		}
+	// 		cout << '\n';
+	// 	}
+	// 	cout << '\n';
+	// }
 	
 	return 0;
 }
+
+/*
+0 1 2 3 4
+
+
+*/
 
 /*
 
@@ -18,7 +73,8 @@ int main(){
 입구가 [0][0][0] 일 경우 출구는 [4][4][4]
 [0][4][4] -> [4][0][0]
 [0][0][4] -> [4][4][0] 모든 원소가 그냥 반대가 되네!
-
+입구는 4가지의 경우의 수가 있는 듯?
+입구가 정해지면 출구가 하나 밖에 나올 수 없다면 
 
 */
 
