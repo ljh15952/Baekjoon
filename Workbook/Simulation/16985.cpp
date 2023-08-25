@@ -67,14 +67,14 @@ int main(){
 		
 	}
 
-	int order[5] = {0,1,2,3,4}; // 판을 쌓는 순서
+	int order[5] = {0,1,2,3,4};
 	int ans = 9999;
 	do{
 		for(int tmp = 0; tmp < 1024; tmp++){
-			int brute = tmp; // 5개의 판에 대해 dir을 정해주기 위한 변수
+			int brute = tmp;
 			for(int i = 0; i < 5; i++){
-				int dir = brute % 4; // brute & 3 이라고 멋있게 쓸 수도 있음
-				brute /= 4; // brute >>= 2 라고 멋있게 쓸 수도 있음
+				int dir = brute % 4; 
+				brute /= 4;
 				for(int j = 0; j < 5; j++)
 				  for(int k = 0; k < 5; k++)
 					maze[i][j][k] = board[dir][order[i]][j][k];        
