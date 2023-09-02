@@ -9,6 +9,15 @@ pair<int, char> Move[105];
 
 int ans = 0;
 
+int mx[4] = {1,0,-1,0};
+int my[4] = {0,1,0,-1};
+// int d = (d < 0) ? 3 : d-1;
+
+
+bool canGo(int y, int x){
+	return (y < N && x < N && y > 0 && x > 0);
+}
+
 void start(){
 	
 }
@@ -49,6 +58,8 @@ int main(){
 }
 
 /*
+지렁이를 저장하는 자료구죠?가 필요할 까?
 
+지렁이 게임이 끝나는 탈출조건 먼저 생각
 
 */
