@@ -2,8 +2,41 @@
 
 using namespace std;
 
+#define Y first
+#define X second
+
 int n, m;
 int board[9][9];
+queue<pair<int, int>> Q;
+
+int mx[4] = {1,0,-1,0};
+int my[4] = {0,1,0,-1};
+
+void dfs(){
+	
+	
+	int tempBoard[9][9];
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
+			tempBoard[i][j] = board[i][j];
+		}
+	}
+	
+	
+	while(!Q.empty()){
+		auto cur = Q.front(); 
+		Q.pop();
+		
+		for(int i = 0; i < 4; i++){
+			int dx = mx[i] + cur.X;
+			int dy = my[i] + cur.Y;
+			
+			
+		}
+		
+	}
+	
+}
 
 int main(){
 	
@@ -14,8 +47,10 @@ int main(){
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < m; j++){
 			cin >> board[i][j];
+			Q.push({i, j});
 		}
 	}
+	
 	
 	
 	cout << '\n';
@@ -30,6 +65,11 @@ int main(){
 }
 
 /*
+
+재귀
+
+전에 백트래킹 부터
+2를 큐에 먼저 넣자
 
 
 */
