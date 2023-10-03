@@ -3,20 +3,39 @@
 using namespace std;
 
 void EEA(int a, int b){
-	int r0 = a, r1 = b;
-	int s0 = 1, s1 = 0;
-	int t0 = 0, t1 = 1;
-	int temp = 0, q = 0;
+	int r1 = a, r2 = b;
+	int s1 = 1, s2 = 0;
+	int t1 = 0, t2 = 1;
 	
-	while(r1){
-		q = r0 / r1; // 4 = 72 / 17
-		temp = r0; // temp = 72
-		r0 = r1; // r0 = 17
-		r1 = temp - r1 * q; // r1 = 72 - 17 * 4 (4)
-		temp = s0; // temp = 1
-		s0 = s1; // s0 = 0
-		s1 = temp - s1 * q; // s1 = 1 - 0 * 4
-		temp = t0; // temp = 0
-		t1 = temp - t1 * q;
+	int q, r, s, t;
+	
+	while(1){
+		
+		q = r1 / r2;
+		r = r1 - (q * r2);
+		s = s1 - (q * s2);
+		t = t1 - (q * t2);
+		
+		if(r == 0){
+			cout << "GCD : " << r2 << '\n';
+			cout << "S : " << s2 << '\n';
+			cout << "T : " << t2 << '\n';
+			break;
+		}
+		
+		r1 = r2;
+		r2 = r;
+		s1 = s2;
+		s2 = s;
+		t1 = t2;
+		t2 = t;
+		
 	}
+}
+
+int main(){
+	
+	EEA(24, 7);	
+	
+	return 0;
 }
