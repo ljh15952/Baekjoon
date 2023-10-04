@@ -35,7 +35,7 @@ void EEA(int a, int b){
 
 int main(){
 	
-	EEA(24, 7);	
+	EEA(12, 5);	
 	
 	return 0;
 }
