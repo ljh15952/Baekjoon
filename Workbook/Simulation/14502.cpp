@@ -7,7 +7,6 @@ using namespace std;
 
 int n, m;
 int board[9][9];
-queue<pair<int, int>> Q;
 
 int mx[4] = {1,0,-1,0};
 int my[4] = {0,1,0,-1};
@@ -15,15 +14,16 @@ int my[4] = {0,1,0,-1};
 
 int ans = 0;
 
-
-
-
 void dfs(){
 			
 	int tempBoard[9][9];
+	queue<pair<int, int>> Q;
+
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < m; j++){
 			tempBoard[i][j] = board[i][j];
+			if(board[i][j] == 2)
+				Q.push({i, j});
 		}
 	}
 	
@@ -75,20 +75,7 @@ void backTracking(int k){
 	}
 	
 }
-/*
 
-0 0 0
-0 0 0
-0 0 0
-
-1 1 1	1 1 0	1 1 0		1 1 0
-0 0 0	1 0 0	0 1 0		0 0 0
-0 0 0	0 0 0	0 0 0 ...	0 0 1
-
-1 0 1	1 0 1
-1 0 0	0 1 0
-0 0 0	0 0 0
-*/
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
@@ -98,22 +85,8 @@ int main(){
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < m; j++){
 			cin >> board[i][j];
-			if(board[i][j] == 2)
-				Q.push({i, j});
 		}
 	}
-	
-	
-	
-	// cout << '\n';
-	// for(int i = 0; i < n; i++){
-	// 	for(int j = 0; j < m; j++){
-	// 		cout << board[i][j] << ' ';
-	// 	}
-	// 	cout << '\n';
-	// }
-	
-	cout << '\n';
 	
 	backTracking(0);
 	cout << ans << '\n';
