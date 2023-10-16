@@ -2,29 +2,73 @@
 
 using namespace std;
 
+int N;
+int arr[21][21];
+int visited[21];
+
+queue<int> team1;
+queue<int> team2;
+
+void calculate(){
+	for(int i = 0; i < 2; i++){
+		int q = team1.front();
+		team1.pop();
+		visited[q] = false;
+		
+		int p = team2.front();
+		team2.pop();
+		visited[p] = false;
+		
+		cout << q << ' ' << p << '\n';
+	}
+}
+
+void backTreacking(){
+
+	if(team1.size() >= 2 && team2.size() >= 2){
+		calculate();
+		return;
+	}
+	
+	for(int i = 0; i < N; i++){
+		if(visited[i])
+			continue;
+		visited[i] = true;
+		
+		if(team1.size() < 2)
+			team1.push(i);
+		else
+			team2.push(i);
+		backTreacking();
+
+	}
+	
+	
+}
+
 int main(){
 	
 	ios::sync_with_stdio(0); cin.tie(0);
 	
-	cout << "QWE" << '\n';
+	cin >> N;
+	
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++){
+			cin >> arr[i][j];
+		}
+	}
+	
+	backTreacking();
 	
 	return 0;
 }
 
 /*
 
-스타트와 링크
-
-축구를 함
-N명의 인원, 짝수임
-N / 2명으로 이루어진 스타트 팀과 링크 팀으로 사람들을 나눔
-
-사람에게 번호 1부터 N까지 배정
-능력치 조사? Sij 는 i번 사람과 j번 사람이 같은 팀에 속했을 때, 팀에 더해지는 능력치
-팀의 능력치는 팀에 속한 모든 쌍의 능력치 Sij의 합
-Sij는 Sji와 다를 수도 있으며, i번 사람과 j번 사람이 같은 팀에 속했을 때, 팀에 더해지는 능력치는
-Sij와 Sji이다.
-
+스타트팀, 링크 팀
+1 2		3 4
+1 3		2 4
+1 4		2 3
 N=4이고, S가 아래와 같은 경우
 	j	1	2	3	4
 i
