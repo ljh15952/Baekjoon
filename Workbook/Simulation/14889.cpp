@@ -30,7 +30,6 @@ void backTreacking(int k){
 		calculate();
 		return;
 	}
-	
 	for(int i = k; i < N; i++){
 		if(visited[i])
 			continue;
