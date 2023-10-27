@@ -6,27 +6,44 @@ int N;
 int arr[21][21];
 int visited[21];
 
-vector<int> team1;
-vector<int> team2;
+int team1[12];
+int team2[12];
+
+int ans = 10000000;
 
 void calculate(){
-	for(int i = 0; i < 2; i++){
-		int q = team1[i];
-
-		cout << q << ' ';
-	}
-	cout << "    ";
-	for(int i = 0; i < 2; i++){
-		int p = team2[i];
-
-		cout << p << ' ';
-	}
-	cout << '\n';	
+	
+	int temp1 = 0;
+    int temp2 = 0;
+	
+	 for (int i = 0; i < N; i++){
+        if(visited[i]){
+            team1[temp1] = i;
+            temp1++;
+        }else{
+            team2[temp2] = i;
+            temp2++;
+    	}
+    }
+	
+	temp1 = 0;
+    temp2 = 0;
+    for (int j = 0; j < N/2 - 1; j++)
+    {
+        for (int k = j + 1; k < N/2; k++)
+        {
+            temp1 += arr[team1[j]][team1[k]] + arr[team1[k]][team1[j]]; // 1번 팀 능력치
+            temp2 += arr[team2[j]][team2[k]] + arr[team2[k]][team2[j]]; // 2번 팀 능력치
+        }
+    }
+    int sub = abs(temp1 - temp2);
+	ans = min(ans, sub);
+	
 }
 
-void backTreacking(int k){
-
-	if(team1.size() >= 2 && team2.size() >= 2){
+void backTreacking(int k, int cnt){
+	
+	if(cnt == N/2){
 		calculate();
 		return;
 	}
@@ -34,30 +51,9 @@ void backTreacking(int k){
 		if(visited[i])
 			continue;
 		visited[i] = true;
-		
-		
-		bool flag = false;
-
-		if(team1.size() < 2){
-			flag = true;
-			team1.push_back(i);
-		}
-		else{
-			team2.push_back(i);
-		}
-		
-		backTreacking(k+1);
-		
-		if(flag){
-			team1.pop_back();
-		}
-		else
-			team2.pop_back();
-		
+		backTreacking(i+1, cnt + 1);
 		visited[i] = false;
-
 	}
-	
 	
 }
 
@@ -72,9 +68,8 @@ int main(){
 			cin >> arr[i][j];
 		}
 	}
-	
-	backTreacking(0);
-	
+	backTreacking(0,0);
+	cout << ans << '\n';
 	return 0;
 }
 
