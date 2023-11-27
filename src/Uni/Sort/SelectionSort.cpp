@@ -9,17 +9,15 @@ int main(){
 	int n = 10;
 	for(int i = 0; i < n-1; i++){
 		
-		int Min = arr[i];
-		int Min_Idx = i;
+		int Min = i;
 		for(int j = i+1; j < n; j++){
-			if(arr[j] < Min){
-				Min = arr[j];
-				Min_Idx = j;
+			if(arr[j] < arr[Min]){
+				Min = j;
 			}
 			
 			int temp = arr[i];
-			arr[i] = arr[Min_Idx];
-			arr[Min_Idx] = temp;
+			arr[i] = arr[Min];
+			arr[Min] = temp;
 		}
 	}
 	
