@@ -1,29 +1,20 @@
-#include <iostream>
-
-using namespace std;
+#include "Value.h"
 
 int main(){
 	
-	int arr[10] = {3,5,1,2,4,8,7,9,6,0};
-	int n = 10;
 	for(int i = 0; i < n-1; i++){
+		int min = i;
 		
-		int Min = i;
 		for(int j = i+1; j < n; j++){
-			if(arr[j] < arr[Min]){
-				Min = j;
+			if(arr[j] < arr[min]){
+				min = j;
 			}
 			
-			int temp = arr[i];
-			arr[i] = arr[Min];
-			arr[Min] = temp;
+			swap(i, min);
 		}
 	}
 	
-	for(int i = 0; i < n; i++){
-		cout << arr[i] << ' ';
-	}
-	cout << endl;
+	print();
 	
 	return 0;
 }
