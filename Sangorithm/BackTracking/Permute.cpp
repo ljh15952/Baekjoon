@@ -7,18 +7,21 @@ int arr[3];
 
 
 bool promising(int k, int i){
-	bool flag = true;
-	
-	int j = 0;
-	while(j < k && flag){
-		if(i == arr[j])
-			flag = false;
-		j++;
+
+	cout << "Call pro K is " << k  << " i is " << i; 
+
+	for(int j = 0; j < k; j++){
+		if(i == arr[j]){
+			cout << " false!\n";
+			return false; 
+		}
 	}
-	
-	return flag;
+	cout << " true!\n";
+	return true;
 }
 void perm(int k){
+	
+	cout << "Call perm K is " << k << endl; 
 	
 	if(k == N){
 		for(int i = 0; i < N; i++)
@@ -29,6 +32,7 @@ void perm(int k){
 	
 	for(int i = 1; i <= N; i++){
 		if(promising(k, i)){
+			cout << "Add " << i << " to arr[" << k << "]\n";
 			arr[k] = i;
 			perm(k+1);
 		}
