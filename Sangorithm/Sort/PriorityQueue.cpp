@@ -25,7 +25,7 @@ void heapSort(){
 	
 	for(int i = n / 2 - 1; i >= 0; i--)
 		heapify(n, i);
-	
+	print();
 	for(int i = n - 1; i >= 0; i--){
 		swap(0, i);
 		heapify(i, 0);
@@ -35,9 +35,9 @@ void heapSort(){
 
 int main(){
 	
-	print();
+//	print();
 	heapSort();
-	print();
+	//print();
 	return 0;
 }
 
