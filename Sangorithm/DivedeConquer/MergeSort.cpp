@@ -56,6 +56,7 @@ void mergeSort(int low, int high) {
 		merge(low, mid, high);
 	}
 }
+
 int main(){
 	
 	cout << "Original array: ";
