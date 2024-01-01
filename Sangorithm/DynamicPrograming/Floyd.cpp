@@ -21,6 +21,7 @@ void floydWarshall(vector<vector<int>>& graph, int V) {
 					dist[k][j] != INF && 
 					dist[i][k] + dist[k][j] < dist[i][j]) {
                     dist[i][j] = dist[i][k] + dist[k][j];
+					//adj[i][j] = MIN(adj[i][j], adj[i][k] + adj[k][j]);
                 }
             }
         }
