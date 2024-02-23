@@ -40,7 +40,7 @@ int main(){
 	for(int i = 0; i < N+M; i++){
 		cout << arr[i] << ' ';
 	}
-	cout << '\n'; 
+	cout << '\n';,
 	
 	
 	return 0;
