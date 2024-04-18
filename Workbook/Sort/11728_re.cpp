@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -37,6 +36,3 @@ int main(){
 	
 	return 0;
 }
-=======
-
->>>>>>> fe2deb7831239de79903da74ee2616044b4c3325
