@@ -25,6 +25,7 @@ int main()
 	int AIdx = 0, BIdx = 0;
 	int n = 0;
 
+	/* My code
 	while (AIdx < N || BIdx < M) {
 		if (AIdx >= N) {
 			while (BIdx < M)
@@ -41,6 +42,17 @@ int main()
 				arr[n++] = B[BIdx++];
 		}
 	}
+	*/
+
+	// Answer code
+
+	for (int i = 0; i < N + M; i++) {
+		if (BIdx == M) arr[i] = A[AIdx++];
+		else if (AIdx == N) arr[i] = B[BIdx++];
+		else if (A[AIdx] <= B[BIdx]) arr[i] = A[AIdx++];
+		else arr[i] = B[BIdx++];
+	}
+
 
 	for (int i = 0; i < N + M; i++)
 		cout << arr[i] << ' ';
