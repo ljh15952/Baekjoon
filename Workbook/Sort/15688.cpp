@@ -18,10 +18,16 @@ int main() {
 	}
 
 	for (int i = 0; i <= 2000000; i++) {
+		/*
 		if (arr[i] > 0) {
 			for (int j = 0; j < arr[i]; j++) {
 				cout << i - 1000000 << '\n';
 			}
+		}
+		*/
+		// answer code
+		while (arr[i]--) {
+			cout << i - 1000000 << '\n';
 		}
 	}
 
