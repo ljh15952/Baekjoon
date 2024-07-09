@@ -13,16 +13,15 @@ void merge(int st, int en) {
 	int aIdx = st;
 	int bIdx = mid;
 
-	for (int i = 0; i < en - st; i++) {
-		
+	for (int i = st; i < en; i++) {
 		if (aIdx == mid) 
-			tmp[st + i] = arr[bIdx++];
+			tmp[i] = arr[bIdx++];
 		else if (bIdx == en) 
-			tmp[st + i] = arr[aIdx++];
-		else if (arr[aIdx] < arr[bIdx]) 
-			tmp[st + i] = arr[aIdx++];
+			tmp[i] = arr[aIdx++];
+		else if (arr[aIdx] <= arr[bIdx]) 
+			tmp[i] = arr[aIdx++];
 		else 
-			tmp[st + i] = arr[bIdx++];
+			tmp[i] = arr[bIdx++];
 	}
 	
 	for (int i = st; i < en; i++) {
