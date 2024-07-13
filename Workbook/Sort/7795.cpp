@@ -2,47 +2,48 @@
 
 using namespace std;
 
-#define Y first
-#define X second
-
-int n;
-int c;
-
-vector<pair<int, int>> arr; // num, cnt
-
-bool cmp(const pair<int, int>& a,const pair<int, int>& b) {
-	return a.X > b.X;
-}
+int T;
 
 int main() {
 
 	ios::sync_with_stdio(0); cin.tie(0);
 
-	cin >> n >> c;
+	cin >> T;
 
-	for (int i = 0; i < n; i++) {
-		int x;
-		cin >> x;
-		bool flag = false;
+	for (int t = 0; t < T; t++) {
+		int n, m;
+		int a[20005], b[20005];
 
-		for (auto& a : arr) {
-			if (a.Y == x) {
-				flag = true;
-				a.X++;
-				break;
-			}
+		cin >> n >> m;
+
+		for (int i = 0; i < n; i++) {
+			cin >> a[i];
 		}
 
-		if (!flag)
-			arr.push_back({ x, 1 });
+		for (int i = 0; i < m; i++) {
+			cin >> b[i];
+		}
+
+		sort(a, a + n);
+		sort(b, b + m);
+
+		int cnt = 0;
+
+		for (int i = 0; i < n; i++) {
+
+			for (int j = 0; j < m; j++) {
+
+				if (a[i] > b[j]) {
+					cnt++;
+				}
+
+			}
+
+		}
+
+		cout << cnt << '\n';
 	}
 
-	stable_sort(arr.begin(), arr.end(), cmp);
-
-	for (auto b : arr)
-		while (b.X--)
-			cout << b.Y << ' ';
-	cout << '\n';
 
 	return 0;
 }
