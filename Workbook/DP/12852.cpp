@@ -5,8 +5,8 @@ using namespace std;
 
 int x;
 
-int d[100005];
-int pre[100005];
+int d[1000005];
+int pre[1000005];
 
 int main() {
 
@@ -15,24 +15,30 @@ int main() {
 	cin >> x;
 
 	d[1] = 0;
-	pre[1] = 0;
-	
 
-	for (int i = 1; i <= x; i++) {
+	for (int i = 2; i <= x; i++) {
 
-		if (i % 3 == 0) {
+		d[i] = d[i - 1] + 1;
+		pre[i] = i - 1;
 
+		if (i % 2 == 0 && d[i] > d[i / 2] + 1) {
+			d[i] = d[i / 2] + 1;
+			pre[i] = i / 2;
 		}
-		else if (i % 2 == 0) {
-
+		if (i % 3 == 0 && d[i] > d[i / 3] + 1) {
+			d[i] = d[i / 3] + 1;
+			pre[i] = i / 3;
 		}
-		else {
-
-		}
-
 	}
 
+	cout << d[x] << '\n';
 
+	int cur = x;
+	while (1) {
+		cout << cur << ' ';
+		if (cur == 1) break;
+		cur = pre[cur];
+	}
 
 	return 0;
 }
